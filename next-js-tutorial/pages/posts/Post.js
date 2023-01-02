@@ -2,6 +2,8 @@
 import React from 'react'
 import Head from 'next/head'
 import Script from 'next/Script'
+import Image from 'next/image'
+import flat1 from '../../public/images/flat (1).jpg'
 
 const Post = () => {
   return (
@@ -14,6 +16,16 @@ const Post = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<h1>first post</h1>
+      <Image  
+        src={flat1}
+        layout="fill"
+      />
+      {/* <Image 
+        src="../../public/images/flat (2).jpg"
+        width={300}
+        height={300}
+      /> */}
+
 		</div>
 	);
 }
