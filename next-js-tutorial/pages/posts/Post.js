@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Script from 'next/Script'
 import Image from 'next/image'
 import flat1 from '../../public/images/flat (1).jpg'
+import styles from '../../styles/sass/style.module.scss'
 
 const Post = () => {
   return (
@@ -15,10 +16,12 @@ const Post = () => {
         <Script  src="" strategy='lazyOnload' onLoad={{}}></Script>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<h1>first post</h1>
+			<h1 className={styles.title} >first post</h1>
       <Image  
         src={flat1}
-        layout="fill"
+        // layout="fill"
+        width={500}
+        height={500}
       />
       {/* <Image 
         src="../../public/images/flat (2).jpg"
