@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { BsFacebook, BsTwitter, BsYoutube } from "react-icons/bs"; 
+import Link from 'next/Link';
 
 const Header = () => {
   return (
@@ -16,15 +17,15 @@ const Header = () => {
 				</div>
 				<div className="w-96 order-3 flex justify-center">
 					<div className="flex gap-6">
-						<a>
+						<Link href={'/'} >
 							<BsFacebook />
-						</a>
-						<a>
+						</Link>
+						<Link href={'/'} >
 							<BsTwitter />
-						</a>
-						<a>
+						</Link>
+						<Link href={'/'} >
 							<BsYoutube />
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>
