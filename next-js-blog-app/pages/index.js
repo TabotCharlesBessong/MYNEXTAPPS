@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/Link'
 import { Inter } from '@next/font/google'
 import Format from '../layout/format'
-import { Section1 , Section2 } from '../components'
+import { Section1 , Section2, Section3 } from '../components'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -12,6 +12,7 @@ export default function Home() {
     <Format>
       <Section1/>
       <Section2/>
+      <Section3/>
     </Format>
   )
 }

@@ -1,47 +1,56 @@
 
-import Link from 'next/link'
-import Image from 'next/image'
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import SwiperCore, { Autoplay } from "swiper";
+import Link from "next/Link";
+import { Author } from "../components";
 import img2 from "../public/images/img2.jpg";
 import img1 from "../public/images/img1.jpg";
 import img3 from "../public/images/img3.png";
 import img4 from "../public/images/img4.png";
 import img5 from "../public/images/img5.png";
-import { Author } from "../components";
+import Image from "next/image";
 
-const Section2 = () => {
+const Section3 = () => {
+  SwiperCore.use([Autoplay]);
   return (
-		<section className="container mx-auto md:px-20 py-10">
+		<section className="container mx-auto md:px-20 py-16">
 			<h1 className="font-bold text-4xl py-12 text-center">
-				Latest Post Title
+				Most Popular Post
 			</h1>
 
-			<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
-				<Post img={img2} />
-				<Post img={img1} />
-				<Post img={img3} />
-				<Post img={img2} />
-				<Post img={img4} />
-				<Post img={img1} />
-				<Post img={img5} />
-				<Post img={img3} />
-				<Post img={img5} />
-				<Post img={img4} />
-			</div>
+			<Swiper
+				sliderPerView={2}
+				loop={true}
+				autoplay={{
+					delay: 4000,
+					disableOnInteraction: false,
+				}}
+			>
+				<SwiperSlide>
+					<Post img={img2} />
+				</SwiperSlide>
+				<SwiperSlide><Post img={img3} /></SwiperSlide>
+				<SwiperSlide><Post img={img4} /></SwiperSlide>
+				<SwiperSlide><Post img={img5} /></SwiperSlide>
+				<SwiperSlide><Post img={img2} /></SwiperSlide>
+				<SwiperSlide><Post img={img1} /></SwiperSlide>
+			</Swiper>
 		</section>
 	);
 }
 
-export default Section2
+export default Section3
 
-const Post = ({img}) => {
-  return (
-		<div className="item">
+const Post = ({ img }) => {
+	return (
+		<div className="grid w-200">
 			<div className="images">
 				<Link href={"/"}>
 					<Image
-						className="rounded"
+						className=""
 						src={img}
-						width={500}
+						width={400}
 						height={350}
 						alt={"Image 1"}
 					/>
@@ -59,12 +68,12 @@ const Post = ({img}) => {
 				<div className="title">
 					<Link
 						href={"/"}
-						className="text-xl font-bold text-gray-800 hover:text-gray-600 "
+						className="text-xl   font-bold text-gray-800 hover:text-gray-600 text-center"
 					>
 						Lorem ipsum dolor sit amet consectetur adipisicing elit.
 					</Link>
 				</div>
-				<p className="text-gray-500 py-3">
+				<p className="text-gray-500 w-100 py-3 text-center">
 					Lorem Ipsum is simply dummy text of the printing and typesetting
 					industry. Lorem Ipsum has been the industry standard dummy text ever
 					since the 1500s, when an unknown printer took a galley of type and
@@ -76,4 +85,5 @@ const Post = ({img}) => {
 			</div>
 		</div>
 	);
-}
+};
+
