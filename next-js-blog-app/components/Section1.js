@@ -3,10 +3,17 @@ import React from 'react'
 import Image from 'next/image'
 import img1 from '../public/images/img1.jpg'
 import Link from 'next/Link'
+import {Author} from '../components'
 
 const Section1 = () => {
+
+	const bg = {
+		background:"url('/images/banner.png') no-repeat",
+		backgroundPosition:"right"
+	}
+
   return (
-    <section className="py-16">
+    <section className="py-16" style={bg} >
       <div className='container mx-auto md:px-20' >
         <h1 className='text-bold text-4xl pb-12 text-center' >Trending</h1>
         <Slide/>
@@ -38,9 +45,9 @@ const Slide = () => {
           </Link>
         </div>
 				<p className='text-gray-500 py-3' >
-				  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
+				  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
 				</p>
-				<h1 className="author">Charles</h1>
+				<Author/>
 			</div>
 		</div>
 	);
