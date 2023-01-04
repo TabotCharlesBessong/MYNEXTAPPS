@@ -45,12 +45,12 @@ const Section1 = () => {
 const Slide = () => {
   return (
 		<div className="grid md:grid-cols-2">
-			<div className="Image">
+			<div className="images">
 				<Link href={"/"}>
 					<Image src={img1} width={600} height={600} alt={"Image 1"} />
 				</Link>
 			</div>
-			<div className="Info flex justify-center flex-col">
+			<div className="info flex justify-center flex-col">
 				<div className="cat">
 					<Link className="text-orange-600 hover:text-orange-800" href={"/"}>
 						Business
@@ -60,7 +60,7 @@ const Slide = () => {
 					</Link> 
 				</div>
         <div className="title">
-          <Link href={'/'} className='text-3xl' >
+          <Link href={'/'} className='text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600' >
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </Link>
         </div>
