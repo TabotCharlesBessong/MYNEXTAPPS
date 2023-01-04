@@ -4,8 +4,13 @@ import Image from 'next/image'
 import img1 from '../public/images/img1.jpg'
 import Link from 'next/Link'
 import {Author} from '../components'
+import {Swiper,SwiperSlide} from 'swiper/react'
+import 'swiper/css'
+import SwiperCore , {Autoplay} from 'swiper'
 
 const Section1 = () => {
+
+	SwiperCore.use([Autoplay])
 
 	const bg = {
 		background:"url('/images/banner.png') no-repeat",
@@ -16,7 +21,22 @@ const Section1 = () => {
     <section className="py-16" style={bg} >
       <div className='container mx-auto md:px-20' >
         <h1 className='text-bold text-4xl pb-12 text-center' >Trending</h1>
-        <Slide/>
+				<Swiper
+				sliderPerView={1}
+				loop={true}
+				autoplay={{
+					delay:6000,
+					disableOnInteraction: false
+				}}
+				>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+					<SwiperSlide>{Slide() }</SwiperSlide>
+				</Swiper>
+        {/* <Slide/> */}
       </div>
     </section>
   )
