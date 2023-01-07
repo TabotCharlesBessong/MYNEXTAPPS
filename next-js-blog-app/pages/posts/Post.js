@@ -3,7 +3,7 @@ import React from 'react'
 import Head from 'next/head'
 import Script from 'next/Script'
 import Image from 'next/image'
-import flat1 from '../../public/images/flat (1).jpg'
+import flat1 from '../../public/images/houses/flat (1).jpg'
 import styles from '../../styles/sass/style.module.scss'
 
 const Post = () => {
