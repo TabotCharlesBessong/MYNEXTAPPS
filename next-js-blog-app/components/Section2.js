@@ -7,8 +7,16 @@ import img3 from "../public/images/img3.png";
 import img4 from "../public/images/img4.png";
 import img5 from "../public/images/img5.png";
 import { Author } from "../components";
+// import getPost from '../utility/helper'
+import fetcher from "../utility/fetcher";
 
 const Section2 = () => {
+	// getPost().then()
+	const {data,isLoading,isError} = fetcher('api/posts')
+	
+	// if(data) console.log(data);
+	if(isLoading) return <div>loading</div>
+	if(isError) return <div>error</div>
   return (
 		<section className="container mx-auto md:px-20 py-10">
 			<h1 className="font-bold text-4xl py-12 text-center">
@@ -16,16 +24,11 @@ const Section2 = () => {
 			</h1>
 
 			<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
-				<Post img={img2} />
-				<Post img={img1} />
-				<Post img={img3} />
-				<Post img={img2} />
-				<Post img={img4} />
-				<Post img={img1} />
-				<Post img={img5} />
-				<Post img={img3} />
-				<Post img={img5} />
-				<Post img={img4} />
+				{
+					data.map((value,index) => (
+           <Post data={value} key={index} />
+					))
+				}
 			</div>
 		</section>
 	);
@@ -33,14 +36,15 @@ const Section2 = () => {
 
 export default Section2
 
-const Post = ({img}) => {
+const Post = ({data}) => {
+	const {id,category,img,published,author,description,title,subtitle} = data
   return (
 		<div className="item">
 			<div className="images">
 				<Link href={"/"}>
 					<Image
 						className="rounded"
-						src={img}
+						src={img || '/'}
 						width={500}
 						height={350}
 						alt={"Image 1"}
@@ -50,10 +54,10 @@ const Post = ({img}) => {
 			<div className="info flex justify-center flex-col py-4">
 				<div className="cat">
 					<Link className="text-orange-600 hover:text-orange-800" href={"/"}>
-						Business
+						{category || 'Unknown'}
 					</Link>
 					<Link className="text-gray-800 hover:text-gray-600" href={"/"}>
-						September 29 2011
+						{published || "Not in the calendar range"}
 					</Link>
 				</div>
 				<div className="title">
@@ -61,18 +65,13 @@ const Post = ({img}) => {
 						href={"/"}
 						className="text-xl font-bold text-gray-800 hover:text-gray-600 "
 					>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						{title}
 					</Link>
 				</div>
 				<p className="text-gray-500 py-3">
-					Lorem Ipsum is simply dummy text of the printing and typesetting
-					industry. Lorem Ipsum has been the industry standard dummy text ever
-					since the 1500s, when an unknown printer took a galley of type and
-					scrambled it to make a type specimen book. It has survived not only
-					five centuries, but also the leap into electronic typesetting,
-					remaining essentially unchanged. It
+					{subtitle}
 				</p>
-				<Author />
+				{author ? <Author/> : '' }
 			</div>
 		</div>
 	);
