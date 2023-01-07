@@ -3,12 +3,18 @@ import React from 'react'
 import Image from 'next/image'
 import img1 from '../public/images/img1.jpg'
 import Link from 'next/Link'
-import {Author} from '../components'
+import {Author,Spinner} from '../components'
 import {Swiper,SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 import SwiperCore , {Autoplay} from 'swiper'
+import fetcher from '../utility/fetcher'
 
 const Section1 = () => {
+	const { data, isLoading, isError } = fetcher("api/trending");
+
+	// if(data) console.log(data);
+	if (isLoading) return <Spinner />;
+	if (isError) return <div>error</div>;
 
 	SwiperCore.use([Autoplay])
 
@@ -29,12 +35,11 @@ const Section1 = () => {
 					disableOnInteraction: false
 				}}
 				>
-					<SwiperSlide>{Slide() }</SwiperSlide>
-					<SwiperSlide>{Slide() }</SwiperSlide>
-					<SwiperSlide>{Slide() }</SwiperSlide>
-					<SwiperSlide>{Slide() }</SwiperSlide>
-					<SwiperSlide>{Slide() }</SwiperSlide>
-					<SwiperSlide>{Slide() }</SwiperSlide>
+					{data.map((value, index) => (
+						<SwiperSlide key={index}>
+							<Slide data={value} />
+						</SwiperSlide>
+					))}
 				</Swiper>
         {/* <Slide/> */}
       </div>
@@ -42,32 +47,34 @@ const Section1 = () => {
   )
 }
 
-const Slide = () => {
+const Slide = ({data}) => {
+	const { id, category, img, published, author, description, title, subtitle } =
+		data;
   return (
-		<div className="grid md:grid-cols-2">
+		<div className="grid md:grid-cols-2 gap-2">
 			<div className="images">
 				<Link href={"/"}>
-					<Image src={img1} width={600} height={600} alt={"Image 1"} />
+					<Image src={img} width={600} height={600} alt={"Image 1"} />
 				</Link>
 			</div>
 			<div className="info flex justify-center flex-col">
 				<div className="cat">
 					<Link className="text-orange-600 hover:text-orange-800" href={"/"}>
-						Business
+						{category || "Unknown category"}
 					</Link>
 					<Link className="text-gray-800 hover:text-gray-600" href={"/"}>
-						September 29 2011
+						{published || "Published"}
 					</Link> 
 				</div>
         <div className="title">
           <Link href={'/'} className='text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600' >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            {title || "unknown title"}
           </Link>
         </div>
 				<p className='text-gray-500 py-3' >
-				  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
+				  {subtitle || "unknown"}
 				</p>
-				<Author/>
+				{author ? <Author/> : '' }
 			</div>
 		</div>
 	);
