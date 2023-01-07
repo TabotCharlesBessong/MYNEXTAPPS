@@ -1,21 +1,14 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import img2 from "../public/images/img2.jpg";
-import img1 from "../public/images/img1.jpg";
-import img3 from "../public/images/img3.png";
-import img4 from "../public/images/img4.png";
-import img5 from "../public/images/img5.png";
-import { Author } from "../components";
-// import getPost from '../utility/helper'
+import { Author, Spinner } from "../components";
 import fetcher from "../utility/fetcher";
 
 const Section2 = () => {
-	// getPost().then()
 	const {data,isLoading,isError} = fetcher('api/posts')
 	
 	// if(data) console.log(data);
-	if(isLoading) return <div>loading</div>
+	if(isLoading) return <Spinner/>
 	if(isError) return <div>error</div>
   return (
 		<section className="container mx-auto md:px-20 py-10">

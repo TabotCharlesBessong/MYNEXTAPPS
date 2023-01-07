@@ -8,3 +8,4 @@ export {default as Section4} from "./Section4"
 export {default as Author} from './_child/Author'
 export {default as NewsLetter} from "./_child/NewsLetter";
 export {default as Related} from './_child/Related'
+export {default as Spinner} from './_child/Spinner'
