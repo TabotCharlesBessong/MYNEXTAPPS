@@ -1,6 +1,7 @@
 /** Controller */
 import Users from "../model/user";
 
+// post : http://localhost:3000/api/users
 export async function getUsers(req, res) {
 	try {
 		const users = await Users.find({});
@@ -10,6 +11,20 @@ export async function getUsers(req, res) {
 	} catch (error) {
 		res.status(404).json({ error: "Error While Fetching Data" });
 	}
+}
+
+// post : http://localhost:3000/api/user/[userId]
+export async function getUser(req,res){
+    try {
+        const {userId} = req.query 
+        if(userId) {
+            const user = await Users.findById(userId)
+            res.status(200).json(user)
+        }
+        res.status(404).json({error:'No user with this id found'})
+    } catch (error) {
+      res.status(404).json({ error: "Error While Fetching User" });
+    }
 }
 
 // post : http://localhost:3000/api/user
