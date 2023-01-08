@@ -1,5 +1,5 @@
 import connectDB from "../../../database/connection";
-import {getUsers} from '../../../database/controller'
+import {getUsers , postUser} from '../../../database/controller'
 
 export default async function handler(req, res) {
 	connectDB().catch(() =>
@@ -15,7 +15,8 @@ export default async function handler(req, res) {
 			// res.status(200).json({ method, name: "GET Request" });
 			break;
 		case "POST":
-			res.status(200).json({ method, name: "POST Request" });
+			postUser(req, res);
+			// res.status(200).json({ method, name: "POST Request" });
 			break;
 		case "PUT":
 			res.status(200).json({ method, name: "PUT Request" });
