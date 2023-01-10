@@ -6,6 +6,7 @@ const Table = () => {
 	 
 	// getUser().then(res => console.log(res))
 	const {isLoading,isError,data,error} = useQuery('user',getUser)
+	console.log(data)
 
 	if(isLoading) return <div>Employee is loading</div>
 	if(isError) return <div>Got Error{error}</div>
@@ -35,7 +36,7 @@ const Table = () => {
 				</tr>
 			</thead>
 			<tbody className="bg-gray-200">
-				{data.map((obj, i) => (
+				{data.users.map((obj, i) => (
 					<Tr {...obj} key={i} />
 				))}
 			</tbody>
