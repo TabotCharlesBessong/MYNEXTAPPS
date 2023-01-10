@@ -1,9 +1,12 @@
 import { BiEdit, BiTrashAlt } from "react-icons/bi";
 import { getUsers } from "../utility/helper";
 import { useQuery } from "react-query";
+import {useSelector} from 'react-redux'
 
 const Table = () => {
 	 
+	const state = useSelector((state) => state)
+	console.log(state)
 	// getUser().then(res => console.log(res))
 	const {isLoading,isError,data,error} = useQuery('user',getUsers)
 	console.log(data)
