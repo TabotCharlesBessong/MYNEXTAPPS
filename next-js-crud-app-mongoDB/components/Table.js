@@ -1,11 +1,11 @@
 import { BiEdit, BiTrashAlt } from "react-icons/bi";
-import { getUser } from "../utility/helper";
+import { getUsers } from "../utility/helper";
 import { useQuery } from "react-query";
 
 const Table = () => {
 	 
 	// getUser().then(res => console.log(res))
-	const {isLoading,isError,data,error} = useQuery('user',getUser)
+	const {isLoading,isError,data,error} = useQuery('user',getUsers)
 	console.log(data)
 
 	if(isLoading) return <div>Employee is loading</div>
