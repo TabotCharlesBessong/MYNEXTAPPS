@@ -25,7 +25,7 @@ export async function addUser(formData){
 			body:JSON.stringify(formData)
 		}
 
-		const response = await fetch(`${process.env.BASE_URL}/api/user`,Options)
+		const response = await fetch('http://localhost:3000/api/user',Options)
 	const json = await response.json()
 
 	return json
@@ -43,7 +43,10 @@ export async function updateUser(userId,formData){
 		body: JSON.stringify(formData),
 	};
 
-	const response = await fetch(`${process.env.BASE_URL}/api/user/${userId}`, Options);
+	const response = await fetch(
+		`http://localhost:3000/api/user/${userId}`,
+		Options
+	);
 	const json = await response.json();
 
 	return json;
@@ -57,7 +60,7 @@ export async function deleteUser(userId){
 	};
 
 	const response = await fetch(
-		`${process.env.BASE_URL}/api/user/${userId}`,
+		`http://localhost:3000/api/user/${userId}`,
 		Options
 	);
 	const json = await response.json();
