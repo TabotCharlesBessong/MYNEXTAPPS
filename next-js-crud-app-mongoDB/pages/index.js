@@ -1,16 +1,20 @@
-import Image from 'next/image'
 import Head from 'next/head'
-import Link from 'next/Link'
-import { Inter } from '@next/font/google'
 import {BiUserPlus} from 'react-icons/bi'
 import { Form, Table } from '../components'
-import { useState } from 'react'
+import { useSelector , useDispatch} from 'react-redux'
+import { toggleChangeAction } from '../redux/reducer'
 
 
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [visible,setVisible] = useState(false)
+  const visible= useSelector((state) => state.app.client.toggleForm )
+
+	const dispatch = useDispatch()
+
+	const handler = () => {
+	  dispatch(toggleChangeAction());
+	}
   return (
 		<section className="flex justify-center">
 			<Head>
@@ -25,7 +29,7 @@ export default function Home() {
 
 				<div className="container mx-auto flex justify-between py-5 border-b">
 					<div className=" left flex gap-3">
-						<button onClick={() => setVisible(!visible)} className="flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-500">
+						<button onClick={handler} className="flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-500">
 							Add Employee{" "}
 							<span className="px-1">
 								<BiUserPlus size={25} />
