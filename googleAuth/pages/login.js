@@ -8,9 +8,14 @@ import google from '../public/assets/google.svg'
 import {HiAtSymbol,HiFingerPrint} from 'react-icons/hi'
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
+import {signIn,signOut} from 'next-auth/react'
 
 const Login = () => {
 	const [show,setShow] = useState(false)
+
+	async function handleGoogleSignIn(){
+		signIn('google',{callbackUrl:"http://localhost:3000"})
+	}
   return (
 		<Layout>
 			<Head>
@@ -59,7 +64,7 @@ const Login = () => {
 						</button>
 					</div>
 					<div className="input-button">
-						<button type="button" className={styles.button_custom}>
+						<button onClick={handleGoogleSignIn} type="button" className={styles.button_custom}>
 							Sign In with Google{" "}
 							<Image
 								src={google}
