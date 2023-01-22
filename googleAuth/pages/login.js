@@ -5,8 +5,12 @@ import styles from '../styles/Form.module.css'
 import Image from "next/image";
 import github from '../public/assets/github.svg'
 import google from '../public/assets/google.svg'
+import {HiAtSymbol,HiFingerPrint} from 'react-icons/hi'
+import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useState } from "react";
 
 const Login = () => {
+	const [show,setShow] = useState(false)
   return (
 		<Layout>
 			<Head>
@@ -30,14 +34,22 @@ const Login = () => {
 							placeholder="Email"
 							className={styles.input_text}
 						/>
+						<span className="icon flex items-center px-4" >
+							<HiAtSymbol size={25} />
+						</span>
 					</div>
 					<div className={styles.input_group}>
 						<input
-							type="password"
+							type={`${show ? 'text' :'password'}`}
 							name="password"
 							placeholder="password"
 							className={styles.input_text}
 						/>
+						<span onClick={() => setShow(!show)} className="icon flex items-center px-4" >
+						{
+							show ? <AiFillEye size={25} /> : <AiOutlineEyeInvisible size={25}/>
+						}
+						</span>
 					</div>
 
 					{/* login buttons */}
