@@ -9,7 +9,7 @@ export default function Home() {
 
 
   return (
-		<section className="flex justify-center">
+		<section className="w-screen flex justify-center">
 			<Head>
 				<title>NEXT JS AUTH APP</title>
 				<link rel="icon" href="/favicon.ico" />
