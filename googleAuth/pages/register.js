@@ -43,7 +43,13 @@ const Register = () => {
 
 				{/* form */}
 				<form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
-					<div className={styles.input_group}>
+					<div
+						className={`${styles.input_group} ${
+							formik.errors.username && formik.touched.username
+								? "border-rose-600"
+								: ""
+						}`}
+					>
 						<input
 							type="text"
 							name="username"
@@ -60,7 +66,13 @@ const Register = () => {
 					) : (
 						""
 					)}
-					<div className={styles.input_group}>
+					<div
+						className={`${styles.input_group} ${
+							formik.errors.email && formik.touched.email
+								? "border-rose-600"
+								: ""
+						}`}
+					>
 						<input
 							type="email"
 							name="email"
@@ -77,7 +89,13 @@ const Register = () => {
 					) : (
 						""
 					)}
-					<div className={styles.input_group}>
+					<div
+						className={`${styles.input_group} ${
+							formik.errors.password && formik.touched.password
+								? "border-rose-600"
+								: ""
+						}`}
+					>
 						<input
 							type={`${show.password ? "text" : "password"}`}
 							name="password"
@@ -102,7 +120,13 @@ const Register = () => {
 						""
 					)}
 
-					<div className={styles.input_group}>
+					<div
+						className={`${styles.input_group} ${
+							formik.errors.cpassword && formik.touched.cpassword
+								? "border-rose-600"
+								: ""
+						}`}
+					>
 						<input
 							type={`${show.cpassword ? "text" : "password"}`}
 							name="cpassword"
