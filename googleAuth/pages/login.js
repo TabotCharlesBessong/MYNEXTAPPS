@@ -24,8 +24,15 @@ const Login = () => {
 	})
 
 
-	async function onSubmit(values){
-		console.log(values)
+	async function onSubmit(values) {
+		const status = await signIn("credentials", {
+			redirect: false,
+			email: values.email,
+			password: values.password,
+			callbackUrl: "/",
+		});
+
+		if (status.ok) router.push(status.url);
 	}
 
 	async function handleGoogleSignIn(){

@@ -6,6 +6,6 @@ const userSchema = new Schema({
   password:String
 })
 
-const Users = models.User || model('user',userSchema)
+const Users = models.User || model('User',userSchema)
 
 export default Users
