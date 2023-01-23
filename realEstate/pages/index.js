@@ -2,19 +2,19 @@ import Head from "next/head";
 
 
 export default function Home() {
-	const {data:session} = useSession()
 
-	function handleSignOut(){
-    signOut()
-	}
 
 	return (
-		<div className={styles.container}>
+		<div>
 			<Head>
 				<title>Home Page</title>
 			</Head>
 
-			
+			<main>
+				<h1 className='text-5xl text-green-500' >
+					Hello My World
+				</h1>
+			</main>
 		</div>
 	);
 }
