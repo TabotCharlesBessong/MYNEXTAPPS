@@ -1,0 +1,25 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.input-text{
+  @apply mt-1 block w-60 px-3 py-2 bg-white border-slate-300 rounded-full text-sm shadow-sm placeholder-slate-500;
+  @apply focus:outline-none focus:border-sky-500 focus:ring-sky-500;
+}
+
+.loader{
+  @apply border-gray-200 rounded-full border-4 ease-linear h-20 w-20;
+  border-top-color: #363ce0 ;
+  animation: spinner 1.4s linear infinite;
+}
+
+@keyframes spinner{
+  0%{
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
