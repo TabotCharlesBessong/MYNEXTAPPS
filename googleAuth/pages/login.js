@@ -9,9 +9,24 @@ import {HiAtSymbol,HiFingerPrint} from 'react-icons/hi'
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import {signIn,signOut} from 'next-auth/react'
+import { useFormik } from "formik";
+import { validateLogin } from "../utilities/validate";
 
 const Login = () => {
 	const [show,setShow] = useState(false)
+	const formik = useFormik({
+		initialValues:{
+			email:'',
+			password:''
+		},
+		validate:validateLogin ,
+		onSubmit
+	})
+
+
+	async function onSubmit(values){
+		console.log(values)
+	}
 
 	async function handleGoogleSignIn(){
 		signIn('google',{callbackUrl:"http://localhost:3000"})
@@ -36,31 +51,40 @@ const Login = () => {
 				</div>
 
 				{/* form */}
-				<form className="flex flex-col gap-5">
+				<form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
 					<div className={styles.input_group}>
 						<input
 							type="email"
 							name="email"
 							placeholder="Email"
 							className={styles.input_text}
+							{...formik.getFieldProps("email")}
 						/>
-						<span className="icon flex items-center px-4" >
+						<span className="icon flex items-center px-4">
 							<HiAtSymbol size={25} />
 						</span>
 					</div>
+					{formik.errors.email && formik.touched.email ? <span className="text-rose-500" >{formik.errors.email}</span> : ""}
 					<div className={styles.input_group}>
 						<input
-							type={`${show ? 'text' :'password'}`}
+							type={`${show ? "text" : "password"}`}
 							name="password"
 							placeholder="password"
 							className={styles.input_text}
+							{...formik.getFieldProps("password")}
 						/>
-						<span onClick={() => setShow(!show)} className="icon flex items-center px-4" >
-						{
-							show ? <AiFillEye size={25} /> : <AiOutlineEyeInvisible size={25}/>
-						}
+						<span
+							onClick={() => setShow(!show)}
+							className="icon flex items-center px-4"
+						>
+							{show ? (
+								<AiFillEye size={25} />
+							) : (
+								<AiOutlineEyeInvisible size={25} />
+							)}
 						</span>
 					</div>
+					{formik.errors.password && formik.touched.password ? <span className="text-rose-500" >{formik.errors.password}</span> : ""}
 
 					{/* login buttons */}
 					<div className="input-button">
@@ -69,23 +93,23 @@ const Login = () => {
 						</button>
 					</div>
 					<div className="input-button">
-						<button onClick={handleGoogleSignIn} type="button" className={styles.button_custom}>
+						<button
+							onClick={handleGoogleSignIn}
+							type="button"
+							className={styles.button_custom}
+						>
 							Sign In with Google{" "}
-							<Image
-								src={google}
-								width="20"
-								height={20}
-							></Image>
+							<Image src={google} width="20" height={20}></Image>
 						</button>
 					</div>
 					<div className="input-button">
-						<button onClick={handleGithubSignIn} type="button" className={styles.button_custom}>
+						<button
+							onClick={handleGithubSignIn}
+							type="button"
+							className={styles.button_custom}
+						>
 							Sign In with Github{" "}
-							<Image
-								src={github}
-								width={25}
-								height={25}
-							></Image>
+							<Image src={github} width={25} height={25}></Image>
 						</button>
 					</div>
 				</form>
@@ -94,7 +118,7 @@ const Login = () => {
 				<p className="text-center text-gray-400 ">
 					dont have an account yet?{" "}
 					<Link className="text-blue-700" href={"/register"}>
-					Sign Up
+						Sign Up
 					</Link>
 				</p>
 			</section>
