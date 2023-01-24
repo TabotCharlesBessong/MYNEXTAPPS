@@ -7,6 +7,7 @@ import {ChakraProvider} from '@chakra-ui/react'
 import Router from 'next/router'
 import Head from 'next/head'
 import nProgress from 'nprogress'
+import {Layout} from '../components'
 
 //create client 
 const queryClient = new QueryClient()
@@ -16,8 +17,11 @@ export default function App({ Component, pageProps }) {
 		<QueryClientProvider client={queryClient}>
 			<Provider store={store}>
 				<SessionProvider session={pageProps.sessions}>
+					<Head></Head>
 					<ChakraProvider>
-						<Component {...pageProps} />
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
 					</ChakraProvider>
 				</SessionProvider>
 			</Provider>
