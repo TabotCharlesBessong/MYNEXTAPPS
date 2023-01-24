@@ -64,7 +64,7 @@ export default function Home({propertiesForSale,propertiesForRent}) {
 					linkName="/search?purpose=for-sale"
 					imgUrl="/../public/assets/family (5).jpg"
 				/>
-				<Flex>
+				<Flex flexWrap="wrap">
 					{/*  */}
 					{propertiesForSale.map((property) => (
 						<Property property={property} key={property.id} />
