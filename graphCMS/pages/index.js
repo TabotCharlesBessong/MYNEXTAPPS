@@ -1,19 +1,40 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import { PostCard, PostWidget, Category } from "../components";
 
 export default function Home() {
 
-	
+const posts = [
+	{
+		title: "React Testing",
+		excerpt: "learn testing",
+	},
+	{
+		title: "React With Tailwind",
+		excerpt: "learn react js with tailwind css",
+	},
+];
 
 	return (
-		<div className={styles.container}>
+		<div className="container mx-auto px-10 mb-8">
 			<Head>
-				<title>Home Page</title>
+				<title>CMS Blog</title>
 			</Head>
 
-			<main className="container mx-auto text-center py-20">
-				<h3 className="text-7xl font-bold text-orange-500">Guest Homepage</h3>
-			</main>
+			<div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+				<div className='lg:col-span-8 col-span-1' >
+					{posts.map((post, index) => (
+						<div key={index + post.title}>
+							<PostCard post={post} />
+						</div>
+					))}
+				</div>
+				<div className="lg:col-span-4 col-span-1">
+          <div className='lg:sticky relative top-8' >
+            <PostWidget/>
+						<Category/>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
