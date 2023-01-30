@@ -1,12 +1,14 @@
-import '../styles/global.scss'
-import {Layout} from '../components'
+import React from 'react';
 
-//create client 
+import '../styles/global.scss';
+import { Layout } from '../components';
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
-	);
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
+
+export default MyApp;
