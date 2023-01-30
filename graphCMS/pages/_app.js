@@ -1,10 +1,12 @@
 import '../styles/global.scss'
+import {Layout} from '../components'
 
 //create client 
 
 export default function App({ Component, pageProps }) {
   return (
-		
-		<Component {...pageProps} />
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
 	);
 }
