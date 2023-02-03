@@ -4,6 +4,7 @@ import { Flex, Icon, Menu, MenuButton, Text,MenuList } from "@chakra-ui/react";
 import React from 'react';
 import { useSetRecoilState } from "recoil";
 import {TiHome} from 'react-icons/ti'
+import {Communities} from '../../index'
 
 
 const Directory:React.FC= () => {
@@ -22,7 +23,7 @@ const Directory:React.FC= () => {
         </Flex>
       </MenuButton>
       <MenuList>
-        communities
+        <Communities/>
       </MenuList>
     </Menu>
   )
