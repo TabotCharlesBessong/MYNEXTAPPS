@@ -1,7 +1,7 @@
 
 import { Flex,Button } from '@chakra-ui/react'
 import React from 'react'
-import {AuthButtons, AuthModal,Icons} from '../../index'
+import {AuthButtons, AuthModal,Icons, UserMenu} from '../../index'
 import {signOut,User} from 'firebase/auth'
 import { auth } from '@/src/firebase/clientApp'
 
@@ -15,7 +15,7 @@ const RightContent:React.FC<RightContentProps> = ({user}) => {
       <AuthModal/>
       <Flex justify='center' align='center' >
         {user ? <Icons/>:<AuthButtons/>  }
-        
+        <UserMenu user={user} />
       </Flex>
     </>
   )
