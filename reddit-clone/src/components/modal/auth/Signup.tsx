@@ -2,6 +2,9 @@ import React,{useState} from 'react'
 import {Input,Button,Flex,Text} from '@chakra-ui/react'
 import {useSetRecoilState} from 'recoil'
 import { authModalState } from '@/src/atoms/authModalAtom'
+import { auth } from '@/src/firebase/clientApp'
+import { FIREBASE_ERRORS } from '@/src/firebase/errors'
+import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
 
 
 const Signup:React.FC = () => {
@@ -12,6 +15,15 @@ const Signup:React.FC = () => {
     confirmPassword:''
   })
 
+  const [error, setError] = useState('')
+
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    userError
+  ] = useCreateUserWithEmailAndPassword(auth)
+
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setSignupForm(prev => ({
       ...prev,
@@ -20,7 +32,24 @@ const Signup:React.FC = () => {
   }
 
   // firebase logic
-  const handleSubmit = () => {}
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    // console.log(signupForm.password,signupForm.confirmPassword)
+    if(signupForm.password.length < 6){
+      setError('Password should be at least 6 characters')
+    }
+    if(signupForm.password !== signupForm.confirmPassword){
+      // set an error
+      setError('Password do not match')
+      // setSignupForm({
+      //   password:'',
+      //   confirmPassword:''
+      // })
+      return
+    } 
+     createUserWithEmailAndPassword(signupForm.email,signupForm.password)
+    
+  }
   return (
     <form onSubmit={handleSubmit} >
       <Input required name='email' placeholder='email' type='email' mb={2} onChange={handleChange} fontSize='10pt' _placeholder={{
@@ -71,7 +100,8 @@ const Signup:React.FC = () => {
       }}
       mb={2}
        />
-      <Button mt={2} mb={2} width='100%' height='36px' >Login</Button>
+       {(error || userError) && (<Text color='red.300' >{error || FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}</Text>)}
+      <Button type='submit' mt={2} mb={2} width='100%' height='36px' isLoading={loading} >Signup</Button>
 
       <Flex>
         <Text mr={2} >Already A Redditor</Text>
