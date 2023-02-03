@@ -3,7 +3,7 @@ import { Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, Mo
 import { auth } from '@/src/firebase/clientApp'
 import React,{useEffect} from 'react'
 import { useRecoilState } from 'recoil'
-import {AuthInputs, OAuthButtons} from '../../index'
+import {AuthInputs, OAuthButtons,ResetPassword} from '../../index'
 import {useAuthState} from 'react-firebase-hooks/auth'
 
 const AuthModal:React.FC = () => {
@@ -34,9 +34,17 @@ const AuthModal:React.FC = () => {
           <ModalCloseButton />
           <ModalBody pb={6} display='flex' flexDirection='column' justifyContent='center' alignItems='center' >
             <Flex direction='column' align='center' justify='center' width='70%' >
-              <OAuthButtons/>
+              {modalState.view === 'login' || modalState.view === 'signup' ? 
+              <>
+                <OAuthButtons/>
               <Text fontWeight={700} textAlign='center' display='flex' alignItems='center' justifyContent='center' color='gray.400' width={50} height={50} borderRadius={50} border='2px solid' borderColor='#444' >OR</Text>
               <AuthInputs/>
+
+              </>
+              : 
+              <ResetPassword/>
+               }
+              
             </Flex>
           </ModalBody>
 
