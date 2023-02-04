@@ -5,7 +5,7 @@ import { authModalState } from '@/src/atoms/authModalAtom'
 import { auth,firestore } from '@/src/firebase/clientApp'
 import { FIREBASE_ERRORS } from '@/src/firebase/errors'
 import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
-import {addDoc} from 'firebase/firestore'
+import {addDoc,collection} from 'firebase/firestore'
 
 
 const Signup:React.FC = () => {

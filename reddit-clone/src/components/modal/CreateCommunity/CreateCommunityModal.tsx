@@ -67,20 +67,27 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 
     try{
       const communityDocRef = doc(firestore,'communities',name)
-      const communityDoc = await getDoc(communityDocRef)
-  
-      if(communityDoc.exists()) {
-        throw new Error(`Sorry, r${name} is taken, try another`)
-      }
-  
-      await setDoc(communityDocRef, {
-        creatorId:user?.uid,
-        createdAt:serverTimestamp(),
-        numberOfMembers:1,
-        privacyType:communityType
-      })
-      handleClose()
 
+      await runTransaction(firestore,async(transaction)=>{
+        const communityDoc = await transaction.get(communityDocRef)
+    
+        if(communityDoc.exists()) {
+          throw new Error(`Sorry, r${name} is taken, try another`)
+        }
+        transaction.set(communityDocRef, {
+          creatorId:user?.uid,
+          createdAt:serverTimestamp(),
+          numberOfMembers:1,
+          privacyType:communityType
+        })
+        handleClose()
+
+        // ceate community snippet on user
+        transaction.set(doc(firestore,`users/${user?.uid}/communitySnippets`,name),{
+          communityId:name,
+          isModerator:true,
+        })
+      })
     }catch(error){
       console.log('handleCreateComunnityError',error)
       setNameError(error.message)

@@ -3,6 +3,7 @@ import {useSignInWithGoogle,useSignInWithGithub} from 'react-firebase-hooks/auth
 import { auth,firestore } from '@/src/firebase/clientApp'
 import React,{useEffect} from 'react'
 import {setDoc,doc} from 'firebase/firestore'
+import {User} from 'firebase/auth'
 
 const OAuthButtons:React.FC = () => {
 
@@ -26,7 +27,7 @@ const OAuthButtons:React.FC = () => {
   }
 
   const createUserDocumentGithub = async(user:User) => {
-    const githubUserDocRef = doc(firestore,'users',user.uid)
+    const githubUserDocRef = doc(firestore,"users",user?.uid)
     await setDoc(githubUserDocRef,JSON.parse(JSON.stringify(user)))
   }
  
