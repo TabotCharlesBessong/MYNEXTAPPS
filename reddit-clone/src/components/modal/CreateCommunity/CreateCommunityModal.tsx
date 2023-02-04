@@ -14,14 +14,15 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp,getDoc,setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { useSetRecoilState } from "recoil";
 import { communityState } from "../../../atoms/communitiesAtom";
-import { firestore } from "../../../firebase/clientApp";
+import { firestore,auth } from "../../../firebase/clientApp";
 import ModalWrapper from "../ModalWrapper";
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 type CreateCommunityModalProps = {
   isOpen: boolean;
@@ -41,6 +42,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [communityType, setCommunityType] = useState("public");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [user] = useAuthState(auth)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -49,6 +51,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   };
 
   const handleCreateCommunity = async () => {
+    // validate the community name
     if (nameError) setNameError("");
     const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -58,43 +61,33 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       );
     }
 
-    setLoading(true);
-    try {
-      // Create community document and communitySnippet subcollection document on user
-      const communityDocRef = doc(firestore, "communities", name);
-      await runTransaction(firestore, async (transaction) => {
-        const communityDoc = await transaction.get(communityDocRef);
-        if (communityDoc.exists()) {
-          throw new Error(`Sorry, /r${name} is taken. Try another.`);
-        }
+    setLoading(true)
+    // create the community document in firestore
+      // check that name is not taken
 
-        transaction.set(communityDocRef, {
-          creatorId: userId,
-          createdAt: serverTimestamp(),
-          numberOfMembers: 1,
-          privacyType: "public",
-        });
+    try{
+      const communityDocRef = doc(firestore,'communities',name)
+      const communityDoc = await getDoc(communityDocRef)
+  
+      if(communityDoc.exists()) {
+        throw new Error(`Sorry, r${name} is taken, try another`)
+      }
+  
+      await setDoc(communityDocRef, {
+        creatorId:user?.uid,
+        createdAt:serverTimestamp(),
+        numberOfMembers:1,
+        privacyType:communityType
+      })
+      handleClose()
 
-        transaction.set(
-          doc(firestore, `users/${userId}/communitySnippets`, name),
-          {
-            communityId: name,
-            isModerator: true,
-          }
-        );
-      });
-    } catch (error: any) {
-      console.log("Transaction error", error);
-      setNameError(error.message);
+    }catch(error){
+      console.log('handleCreateComunnityError',error)
+      setNameError(error.message)
     }
-    setSnippetState((prev) => ({
-      ...prev,
-      mySnippets: [],
-    }));
-    handleClose();
-    router.push(`r/${name}`);
-    setLoading(false);
-  };
+
+    setLoading(false)
+  }
 
   const onCommunityTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
