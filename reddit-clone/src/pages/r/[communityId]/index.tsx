@@ -5,12 +5,16 @@ import {GetServerSidePropsContext} from 'next'
 import {firestore} from '../../../firebase/clientApp'
 import {Community} from '../../../atoms/communitiesAtom'
 import safeJsonStringify from "safe-json-stringify"
+import {NotFound} from '../../../components'
 
 type CommunityPageProps = {
   communityData:Community
 }
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
+  if(!communityData){
+    return <NotFound/>
+  }
   return(
     <div> Welcome to {communityData.id} </div>
   )
@@ -23,7 +27,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext){
     const communityDoc = await getDoc(communityDocRef)
     return {
       props:{
-        communityData:JSON.parse(safeJsonStringify({id:communityDoc.id, ...communityDoc.data()})),
+        communityData:communityDoc.exists() ?  JSON.parse(safeJsonStringify({id:communityDoc.id, ...communityDoc.data()})) : '',
       },
     }
   }catch (error){
