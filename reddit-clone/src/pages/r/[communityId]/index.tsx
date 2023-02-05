@@ -1,6 +1,6 @@
 
 import React from 'react'
-import {doc} from 'firebase/firestore'
+import {doc,getDoc} from 'firebase/firestore'
 import {GetServerSidePropsContext} from 'next'
 import {firestore} from '../../../firebase/clientApp'
 import {Community} from '../../../atoms/communitiesAtom'

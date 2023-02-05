@@ -9,6 +9,7 @@ specifiers:
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
+  '@types/safe-json-stringify': ^1.1.2
   eslint: 8.33.0
   eslint-config-next: 13.1.6
   firebase: ^9.16.0
@@ -51,6 +52,9 @@ dependencies:
   recoil: 0.7.6_biqbaboplfbrettd7655fr4n2y
   safe-json-stringify: 1.2.0
   typescript: 4.9.5
+
+devDependencies:
+  '@types/safe-json-stringify': 1.1.2
 
 packages:
 
@@ -2116,6 +2120,10 @@ packages:
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
     dev: false
+
+  /@types/safe-json-stringify/1.1.2:
+    resolution: {integrity: sha512-Hj/LZMBXFH3Qj9sNmNu6syBpkZqBaM00HgP7naf9CnZhB3kdxmrenWUD2cY6vvTWjuBM3NPOLknPKDUOQuTWXA==}
+    dev: true
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
