@@ -26,7 +26,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
   useEffect(() => {
     if (!user || !!communityStateValue.mySnippets.length) return;
 
-    getSnippets();
+    getSnippets()
   }, [user]);
 
   const getSnippets = async () => {
@@ -83,8 +83,10 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
 
   const onJoinLeaveCommunity = (community: Community, isJoined?: boolean) => {
     console.log("ON JOIN LEAVE", community.id);
-
+    
+    // check if user is signed in 
     if (!user) {
+      // make them sign in
       setAuthModalState({ open: true, view: "login" });
       return;
     }

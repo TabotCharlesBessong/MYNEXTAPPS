@@ -9,13 +9,21 @@ import {ChevronDownIcon} from '@chakra-ui/icons'
 import {signOut,User} from 'firebase/auth'
 import { auth } from '@/src/firebase/clientApp'
 import { authModalState } from '@/src/atoms/authModalAtom'
+import { communityState } from '@/src/atoms/communitiesAtom'
 import {IoSparkles} from 'react-icons/io5'
 
 type UserMenuProps = {
   user?:User | null
 }
 
+
 const UserMenu:React.FC<UserMenuProps> = ({user}) => {
+  const resetCommunityState = useResetRecoilState(communityState)
+  const Logout = async () => {
+    await signOut(auth)
+    resetCommunityState()
+    // clear community
+  }
   const setAuthModalState = useSetRecoilState(authModalState)
   return (
     <Menu>
@@ -63,7 +71,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
         fontSize="10pt"
         fontWeight={700}
         _hover={{ bg: "blue.500", color: "white" }}
-        onClick={() => signOut(auth) }
+        onClick={Logout}
       >
         <Flex alignItems="center">
           <Icon fontSize={20} mr={2} as={MdOutlineLogin} />
