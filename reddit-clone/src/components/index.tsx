@@ -1,4 +1,5 @@
 export {default as Layout} from './layout/Layout'
+export {default as PageContent} from './layout/PageContent'
 export {default as Navbar} from './navbar/Navbar'
 export {default as SearchInput} from './navbar/SearchInput'
 export {default as RightContent} from './navbar/rightContent/RightContent'
