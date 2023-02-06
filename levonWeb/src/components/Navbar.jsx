@@ -29,6 +29,7 @@ import {
 const DesktopSubNav = ({ label, href, subLabel }) => {
 	return (
 		<Link
+			style={{ textDecoration: "none" }}
 			href={href}
 			role={"group"}
 			display={"block"}
@@ -120,7 +121,12 @@ const MobileNavItem = ({ label, children, href }) => {
 				>
 					{children &&
 						children.map((child) => (
-							<Link key={child.label} py={2} href={child.href}>
+							<Link
+								style={{ textDecoration: "none" }}
+								key={child.label}
+								py={2}
+								href={child.href}
+							>
 								{child.label}
 							</Link>
 						))}
@@ -163,17 +169,18 @@ const Navbar = () => {
 					/>
 				</Flex>
 				<Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-					<Text as={a}
-					  href={}
-						textAlign={useBreakpointValue({ base: "right", md: "left" })}
-						fontFamily={"heading"}
-						color={useColorModeValue("gray.800", "white")}
-            mr={{base:40,md:2}}
-            fontSize={{base:40,md:32}}
-            fontWeight={{base:700,md:500}}
-					>
-						LEVON
-					</Text>
+					<Link style={{ textDecoration: "none" }} href="/">
+						<Text
+							textAlign={useBreakpointValue({ base: "right", md: "left" })}
+							fontFamily={"heading"}
+							color={useColorModeValue("gray.800", "white")}
+							mr={{ base: 40, md: 2 }}
+							fontSize={{ base: 40, md: 32 }}
+							fontWeight={{ base: 700, md: 500 }}
+						>
+							LEVON
+						</Text>
+					</Link>
 
 					<Flex display={{ base: "none", md: "flex" }} ml={10}>
 						<Stack direction={"row"} spacing={4}>
@@ -182,6 +189,7 @@ const Navbar = () => {
 									<Popover trigger={"hover"} placement={"bottom-start"}>
 										<PopoverTrigger>
 											<Link
+												style={{ textDecoration: "none" }}
 												p={2}
 												href={navItem.href ?? "#"}
 												fontSize={"sm"}
@@ -225,34 +233,27 @@ const Navbar = () => {
 					direction={"row"}
 					spacing={6}
 				>
-          <Link href='/login' >
-            <Button
-              as={"a"}
-              fontSize={"sm"}
-              fontWeight={400}
-              variant={"link"}
-            >
-              Login
-            </Button>
+					<Link style={{ textDecoration: "none" }} href="/login">
+						<Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"}>
+							Login
+						</Button>
+					</Link>
 
-          </Link>
-
-          <Link href='/signup' >
-            <Button
-              as={"a"}
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              color={"white"}
-              bg={"pink.400"}
-              _hover={{
-                bg: "pink.300",
-              }}
-            >
-              Sign Up
-            </Button>
-
-          </Link>
+					<Link style={{ textDecoration: "none" }} href="/signup">
+						<Button
+							as={"a"}
+							display={{ base: "none", md: "inline-flex" }}
+							fontSize={"sm"}
+							fontWeight={600}
+							color={"white"}
+							bg={"pink.400"}
+							_hover={{
+								bg: "pink.300",
+							}}
+						>
+							Sign Up
+						</Button>
+					</Link>
 				</Stack>
 			</Flex>
 
