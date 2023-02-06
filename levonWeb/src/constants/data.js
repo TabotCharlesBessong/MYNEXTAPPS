@@ -1,3 +1,6 @@
+
+import images from './images'
+
 const navItems = [
 	{
 		label: "Motivation",
@@ -44,8 +47,47 @@ const navItems = [
 	},
 ];
 
+const team = [
+	{
+		id: 1,
+		lastName: "Asongna",
+		firstName: "Brilan",
+		role: "ROS developer",
+		responsibility:
+			"allows developers to easily simulate their robot in any environment, before deploying anything in the real world",
+		image: images.brilan
+	},
+	{
+		id: 2,
+		lastName: "Tabot",
+		firstName: "Charles",
+		role: "Web and ML developer",
+		responsibility:
+			"Build website for the LEVON team and develope machine learning algorithm for the vehicle",
+		image: images.charles
+	},
+	{
+		id: 3,
+		lastName: "Tambu",
+		firstName: "Precious",
+		role: "Security/ROS developer",
+		responsibility:
+			"In charge of security of the AI robotic model of the Vehicle",
+		image:images.precious
+	},
+	{
+		id:4,
+		lastName:"Agwe",
+		firstName:"Roy",
+		role:"Electronic",
+		responsibility:"Building the battery and motor",
+		image:images.roy
+	}
+];
+
 const data = {
-  navItems
+  navItems,
+	team
 }
 
 export default data
