@@ -5,7 +5,7 @@ import {GetServerSidePropsContext} from 'next'
 import {firestore} from '../../../firebase/clientApp'
 import {Community} from '../../../atoms/communitiesAtom'
 import safeJsonStringify from "safe-json-stringify"
-import {NotFound,Header,PageContent} from '../../../components'
+import {NotFound,Header,PageContent, CreatePostLink} from '../../../components'
 
 type CommunityPageProps = {
   communityData:Community
@@ -20,7 +20,7 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
       <Header communityData={communityData} />
       <PageContent>
         <>
-        <div>LHS</div>
+          <CreatePostLink/>
         </>
         <>
         <div>RHS</div>
