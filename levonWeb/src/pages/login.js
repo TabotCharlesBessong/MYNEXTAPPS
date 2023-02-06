@@ -11,6 +11,7 @@ import {
 	Image,
 } from "@chakra-ui/react";
 import {AuthLayout} from '../components'
+import {useState} from 'react'
 
 const Login = () => {
   const [formData, setFormData] = useState({
