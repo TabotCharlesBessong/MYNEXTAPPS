@@ -1,4 +1,7 @@
-import { Flex ,Icon} from '@chakra-ui/react'
+import { Flex ,Icon,Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,} from '@chakra-ui/react'
 import React, { useState,useRef } from 'react'
 import {BiPoll} from 'react-icons/bi'
 import { BsLink45Deg, BsMic} from 'react-icons/bs'
@@ -165,6 +168,14 @@ const NewPostForm:React.FC<NewPostFormProps> = ({
           />
         )}
       </Flex>
+
+      {error && (
+        <Alert status='error'>
+          <AlertIcon />
+          <AlertTitle>{error}</AlertTitle>
+          <AlertDescription>Please check the values you have added and try again or check network</AlertDescription>
+        </Alert>
+      )}
     </Flex>
   )
 }
