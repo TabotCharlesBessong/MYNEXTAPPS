@@ -2,16 +2,18 @@
 import React from 'react'
 import {doc,getDoc} from 'firebase/firestore'
 import {GetServerSidePropsContext} from 'next'
-import {firestore} from '../../../firebase/clientApp'
+import {firestore,auth} from '../../../firebase/clientApp'
 import {Community} from '../../../atoms/communitiesAtom'
 import safeJsonStringify from "safe-json-stringify"
-import {NotFound,Header,PageContent, CreatePostLink} from '../../../components'
+import {NotFound,Header,PageContent, CreatePostLink,Post} from '../../../components'
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type CommunityPageProps = {
   communityData:Community
 }
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
+  const [user, loadingUser] = useAuthState(auth);
   if(!communityData){
     return <NotFound/>
   }
@@ -21,6 +23,9 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
       <PageContent>
         <>
           <CreatePostLink/>
+          <Post communityData={communityData}
+            userId={user?.uid}
+            loadingUser={loadingUser} />
         </>
         <>
         <div>RHS</div>
