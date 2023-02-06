@@ -85,7 +85,7 @@ const MobileNavItem = ({ label, children, href }) => {
 			<Flex
 				py={2}
 				as={Link}
-				href={href ?? "#"}
+				href={href}
 				justify={"space-between"}
 				align={"center"}
 				_hover={{
@@ -163,7 +163,8 @@ const Navbar = () => {
 					/>
 				</Flex>
 				<Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-					<Text
+					<Text as={a}
+					  href={}
 						textAlign={useBreakpointValue({ base: "right", md: "left" })}
 						fontFamily={"heading"}
 						color={useColorModeValue("gray.800", "white")}
@@ -230,7 +231,6 @@ const Navbar = () => {
               fontSize={"sm"}
               fontWeight={400}
               variant={"link"}
-              href={"#"}
             >
               Login
             </Button>
@@ -245,7 +245,6 @@ const Navbar = () => {
               fontWeight={600}
               color={"white"}
               bg={"pink.400"}
-              href={"#"}
               _hover={{
                 bg: "pink.300",
               }}
