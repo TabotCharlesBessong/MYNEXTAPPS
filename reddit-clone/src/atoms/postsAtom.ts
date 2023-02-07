@@ -17,7 +17,7 @@ export type Post = {
   };
   imageURL?: string;
   postIdx?: number;
-  createdAt?: Timestamp;
+  createdAt: Timestamp;
   editedAt?: Timestamp;
 };
 
