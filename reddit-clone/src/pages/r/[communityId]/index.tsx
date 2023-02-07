@@ -5,7 +5,7 @@ import {GetServerSidePropsContext} from 'next'
 import {firestore,auth} from '../../../firebase/clientApp'
 import {Community, communityState} from '../../../atoms/communitiesAtom'
 import safeJsonStringify from "safe-json-stringify"
-import {NotFound,Header,PageContent, CreatePostLink,Post} from '../../../components'
+import {NotFound,Header,PageContent, CreatePostLink,Post, About} from '../../../components'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from 'recoil'
 
@@ -37,7 +37,7 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
             loadingUser={loadingUser} />
         </>
         <>
-        <div>RHS</div>
+        <About communityData={communityData} />
         </>
       </PageContent>
     </>
