@@ -159,7 +159,7 @@ const About: React.FC<AboutProps> = ({
                     Created{" "}
                     {moment(
                       new Date(communityData.createdAt!.seconds * 1000)
-                    ).format("MMM DD, YYYY")}
+                    ).format("LLLL")}
                   </Text>
                 )}
               </Flex>
@@ -170,7 +170,7 @@ const About: React.FC<AboutProps> = ({
                   </Button>
                 </Link>
               )}
-              {/* !!!ADDED AT THE VERY END!!! INITIALLY DOES NOT EXIST */}
+              
               {user?.uid === communityData?.creatorId && (
                 <>
                   <Divider />
@@ -190,7 +190,7 @@ const About: React.FC<AboutProps> = ({
                           borderRadius="full"
                           boxSize="40px"
                           src={selectedFile || communityData?.imageURL}
-                          alt="Dan Abramov"
+                          alt="Charles Tabot"
                         />
                       ) : (
                         <Icon

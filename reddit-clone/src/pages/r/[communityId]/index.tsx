@@ -46,7 +46,7 @@ const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
 
 export async function getServerSideProps(context:GetServerSidePropsContext){
   // get community data
-  try{
+  // try{
     const communityDocRef = doc(firestore,"communities",context.query.communityId as String)
     const communityDoc = await getDoc(communityDocRef)
     return {
@@ -54,8 +54,8 @@ export async function getServerSideProps(context:GetServerSidePropsContext){
         communityData:communityDoc.exists() ?  JSON.parse(safeJsonStringify({id:communityDoc.id, ...communityDoc.data()})) : '',
       },
     }
-  }catch (error){
-    console.log('Get Props Server side error',error)
-  }
+  // }catch (error){
+  //   console.log('Get Props Server side error',error)
+  // }
 }
 export default CommunityPage
