@@ -37,6 +37,7 @@ const Posts: React.FC<PostsProps> = ({
   const [loading, setLoading] = useState(false);
   // const setAuthModalState = useSetRecoilState(authModalState);
   const router = useRouter();
+  console.log(communityData)
 
   const { postStateValue, setPostStateValue, onVote, onDeletePost } = usePosts(
     communityData!
@@ -50,6 +51,35 @@ const Posts: React.FC<PostsProps> = ({
       selectedPost: { ...post, postIdx },
     }));
     router.push(`/r/${communityData?.id!}/comments/${post.id}`);
+  };
+  
+
+  
+  const getPosts = async () => {
+    console.log("WE ARE GETTING POSTS!!!");
+
+    setLoading(true);
+    try {
+      const postsQuery = query(
+        collection(firestore, "posts"),
+        where("communityId", "==", communityData?.id!),
+        orderBy("createdAt", "desc")
+      );
+      const postDocs = await getDocs(postsQuery);
+      const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setPostStateValue((prev) => ({
+        ...prev,
+        posts: posts as Post[],
+        postsCache: {
+          ...prev.postsCache,
+          [communityData?.id!]: posts as Post[],
+        },
+        postUpdateRequired: false,
+      }));
+    } catch (error: any) {
+      console.log("getPosts error", error.message);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -96,33 +126,6 @@ const Posts: React.FC<PostsProps> = ({
     // return () => unsubscribe();
   }, [communityData, postStateValue.postUpdateRequired]);
 
-  const getPosts = async () => {
-    console.log("WE ARE GETTING POSTS!!!");
-
-    setLoading(true);
-    try {
-      const postsQuery = query(
-        collection(firestore, "posts"),
-        where("communityId", "==", communityData?.id!),
-        orderBy("createdAt", "desc")
-      );
-      const postDocs = await getDocs(postsQuery);
-      const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setPostStateValue((prev) => ({
-        ...prev,
-        posts: posts as Post[],
-        postsCache: {
-          ...prev.postsCache,
-          [communityData?.id!]: posts as Post[],
-        },
-        postUpdateRequired: false,
-      }));
-    } catch (error: any) {
-      console.log("getPosts error", error.message);
-    }
-    setLoading(false);
-  };
-
   console.log("HERE IS POST STATE", postStateValue);
 
   return (
@@ -135,7 +138,7 @@ const Posts: React.FC<PostsProps> = ({
             <PostItem
               key={post.id}
               post={post}
-              // postIdx={index}
+              postIdx={index}
               onVote={onVote}
               onDeletePost={onDeletePost}
               userVoteValue={

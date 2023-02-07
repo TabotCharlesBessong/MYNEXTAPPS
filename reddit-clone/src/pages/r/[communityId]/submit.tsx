@@ -11,6 +11,7 @@ import useCommunityData from "../../../hooks/useCommunityData";
 const SubmitPostPage:React.FC = () => {
   const [user] = useAuthState(auth)
   const communityStateValue = useRecoilValue(communityState);
+  console.log(communityStateValue,'community state value')
   const { loading } = useCommunityData();
   return (
     <PageContent>
@@ -18,7 +19,7 @@ const SubmitPostPage:React.FC = () => {
         <Box p='14px 6px' borderBottom='1px solid white' >
           <Text>Create a post</Text>
         </Box>
-        {user && <NewPostForm communityId={communityStateValue.currentCommunity.id}
+        {user && <NewPostForm communityId={communityStateValue.mySnippets[0].communityId}
             communityImageURL={communityStateValue.currentCommunity.imageURL}
             user={user}  />}
       </>
