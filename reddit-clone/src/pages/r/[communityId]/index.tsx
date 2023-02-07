@@ -1,12 +1,13 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {doc,getDoc} from 'firebase/firestore'
 import {GetServerSidePropsContext} from 'next'
 import {firestore,auth} from '../../../firebase/clientApp'
-import {Community} from '../../../atoms/communitiesAtom'
+import {Community, communityState} from '../../../atoms/communitiesAtom'
 import safeJsonStringify from "safe-json-stringify"
 import {NotFound,Header,PageContent, CreatePostLink,Post} from '../../../components'
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useSetRecoilState } from 'recoil'
 
 type CommunityPageProps = {
   communityData:Community
@@ -14,9 +15,17 @@ type CommunityPageProps = {
 
 const CommunityPage:React.FC<CommunityPageProps> = ({communityData})=> {
   const [user, loadingUser] = useAuthState(auth);
+  const setCommunityStateValue = useSetRecoilState(communityState)
   if(!communityData){
     return <NotFound/>
   }
+
+  useEffect(()=>{
+    setCommunityStateValue((prev) => ({
+      ...prev,
+      currentCommunity:communityData
+    }))
+  },[communityData, setCommunityStateValue])
   return(
     <>
       <Header communityData={communityData} />

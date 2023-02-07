@@ -6,7 +6,7 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth} from '@/src/firebase/clientApp'
 import { useRecoilValue } from "recoil";
 import {communityState} from '@/src/atoms/communitiesAtom'
-import useCommunityData from "../../../hooks/useCommunityData";
+import useCommunityData from "@/src/hooks/useCommunityData";
 
 const SubmitPostPage:React.FC = () => {
   const [user] = useAuthState(auth)
