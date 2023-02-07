@@ -32,11 +32,11 @@ const OAuthButtons:React.FC = () => {
   }
  
   useEffect(()=>{
-    if(userCred) createUserDocumentGoogle(userCred)
+    if(userCred) createUserDocumentGoogle(userCred.user)
   },[userCred])
 
   useEffect(()=>{
-    if(userGithub) createUserDocumentGithub(userGithub)
+    if(userGithub) createUserDocumentGithub(userGithub.user)
   },[userGithub])
   return (
     <Flex direction='column' width='100%' mb={4} >
