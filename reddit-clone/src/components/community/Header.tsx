@@ -19,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
   const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
   );
+  console.log(communityData,"COMMUNITY DATA")
 
   return (
     <Flex direction="column" width="100%" height="146px">
@@ -26,12 +27,12 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
       <Flex justifyContent="center" bg="white" height="50%">
         <Flex width="95%" maxWidth="860px">
           {/* IMAGE URL IS ADDED AT THE VERY END BEFORE DUMMY DATA - USE ICON AT FIRST */}
-          {communityStateValue.currentCommunity.imageURL ? (
+          {communityData.imageURL ? (
             <Image
               borderRadius="full"
               boxSize="66px"
-              src={communityStateValue.currentCommunity.imageURL}
-              alt="Dan Abramov"
+              src={communityData.imageURL}
+              alt="Charles Tabot"
               position="relative"
               top={-3}
               color="blue.500"
