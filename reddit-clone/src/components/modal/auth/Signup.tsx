@@ -6,6 +6,7 @@ import { auth,firestore } from '@/src/firebase/clientApp'
 import { FIREBASE_ERRORS } from '@/src/firebase/errors'
 import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
 import {addDoc,collection} from 'firebase/firestore'
+import { User } from 'firebase/auth'
 
 
 const Signup:React.FC = () => {
