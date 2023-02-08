@@ -1,7 +1,8 @@
 import React, { MouseEventHandler, useState } from "react";
 import { Flex, Textarea, Button, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
-import AuthButtons from "../../Navbar/RightContent/AuthButtons";
+// import AuthButtons from "../../Navbar/RightContent/AuthButtons";
+import {AuthButtons as AuthButton} from '../../../components'
 
 type CommentInputProps = {
   comment: string;
@@ -73,7 +74,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
           p={4}
         >
           <Text fontWeight={600}>Log in or sign up to leave a comment</Text>
-          <AuthButtons />
+          <AuthButton />
         </Flex>
       )}
     </Flex>
