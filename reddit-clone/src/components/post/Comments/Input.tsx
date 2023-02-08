@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useState } from "react";
-import { Flex, Textarea, Button, Text } from "@chakra-ui/react";
+import { Button, Flex, Textarea,Text  } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 // import AuthButtons from "../../Navbar/RightContent/AuthButtons";
 import {AuthButtons as AuthButton} from '../../../components'
