@@ -164,9 +164,9 @@ const Comments: React.FC<CommentsProps> = ({
 
   useEffect(() => {
     console.log("HERE IS SELECTED POST", selectedPost.id);
-
+    if(!selectedPost) return
     getPostComments();
-  }, []);
+  }, [selectedPost]);
 
   return (
     <Box bg="white" p={2} borderRadius="0px 0px 4px 4px">
@@ -178,13 +178,16 @@ const Comments: React.FC<CommentsProps> = ({
         fontSize="10pt"
         width="100%"
       >
-        <CommentInput
-          comment={comment}
-          setComment={setComment}
-          loading={commentCreateLoading}
-          user={user}
-          onCreateComment={onCreateComment}
-        />
+        {!commentFetchLoading && (
+          <CommentInput
+            comment={comment}
+            setComment={setComment}
+            loading={commentCreateLoading}
+            user={user}
+            onCreateComment={onCreateComment}
+          />
+
+        )}
       </Flex>
       <Stack spacing={6} p={2}>
         {commentFetchLoading ? (
