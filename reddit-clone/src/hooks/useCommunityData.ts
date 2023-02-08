@@ -27,6 +27,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
     if (!user || !!communityStateValue.mySnippets.length) return;
 
     getSnippets()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const getSnippets = async () => {
@@ -176,12 +177,12 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
 
   useEffect(() => {
     // if (ssrCommunityData) return;
-    const { community } = router.query;
-    if (community) {
+    const { communityId } = router.query;
+    if (communityId) {
       const communityData = communityStateValue.currentCommunity;
 
       if (!communityData.id) {
-        getCommunityData(community as string);
+        getCommunityData(communityId as string);
         return;
       }
       // console.log("this is happening", communityStateValue);
@@ -195,6 +196,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
         currentCommunity: defaultCommunity,
       }));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query, communityStateValue.currentCommunity]);
 
   // console.log("LOL", communityStateValue);

@@ -26,12 +26,12 @@ const PostPage: React.FC<PostPageProps> = () => {
     onVote,
   } = usePosts(communityStateValue.currentCommunity);
 
-  const fetchPost = async () => {
+  const fetchPost = async (postId:string) => {
     console.log("FETCHING POST");
 
     setLoading(true);
     try {
-      const postDocRef = doc(firestore, "posts", pid as string);
+      const postDocRef = doc(firestore, "posts", postId as string);
       const postDoc = await getDoc(postDocRef);
       setPostStateValue((prev) => ({
         ...prev,
@@ -52,8 +52,9 @@ const PostPage: React.FC<PostPageProps> = () => {
     const { pid } = router.query;
 
     if (pid && !postStateValue.selectedPost) {
-      fetchPost();
+      fetchPost(pid as string);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query, postStateValue.selectedPost]);
 
   return (
