@@ -236,8 +236,8 @@ const usePosts = (communityData?: Community) => {
   };
 
   useEffect(() => {
-    if (!user?.uid || !communityStateValue.currentCommunity) return;
-    getCommunityPostVotes(communityStateValue.currentCommunity.id);
+    if (!user?.uid || !communityStateValue.currentCommunity?.id) return;
+    getCommunityPostVotes(communityStateValue.currentCommunity?.id);
   }, [user, communityStateValue.currentCommunity]);
 
   /**

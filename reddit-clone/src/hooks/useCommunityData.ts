@@ -199,6 +199,17 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
 
   // console.log("LOL", communityStateValue);
 
+  useEffect(()=>{
+    if(!user){
+      setCommunityStateValue((prev)=> ({
+        ...prev,
+        mySnippets:[]
+      }))
+      return
+    }
+    getMySnippets(user?.uid)
+  },[setCommunityStateValue, user])
+
   return {
     communityStateValue,
     onJoinLeaveCommunity,

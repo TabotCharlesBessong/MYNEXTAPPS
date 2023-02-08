@@ -21,7 +21,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
   const resetCommunityState = useResetRecoilState(communityState)
   const Logout = async () => {
     await signOut(auth)
-    resetCommunityState()
+    // resetCommunityState()
     // clear community
   }
   const setAuthModalState = useSetRecoilState(authModalState)
@@ -35,7 +35,7 @@ const UserMenu:React.FC<UserMenuProps> = ({user}) => {
               <Icon fontSize={24} color='gray.300' as={FaRedditSquare} />
               <Flex display={{base:'none',lg:'flex'}} direction='column' align='flex-start' mr={5} >
                 <Text fontWeight={700} >
-                  {user.displayName || user.email.split('@')[0]}
+                  {user.displayName || user.email?.split('@')[0]}
                 </Text>
                 <Flex>
                   <Icon as={IoSparkles} color='brand.300' mr={2} />
