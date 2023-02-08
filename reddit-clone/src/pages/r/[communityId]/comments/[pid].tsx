@@ -7,6 +7,7 @@ import { auth, firestore } from "@/src/firebase/clientApp";
 import useCommunityData from "@/src/hooks/useCommunityData";
 import usePosts from "@/src/hooks/usePosts";
 import {About,PageContent,Loader,Comments,PostItem} from '@/src/components'
+import { User } from "firebase/auth";
 
 type PostPageProps = {};
 
@@ -83,8 +84,8 @@ const PostPage: React.FC<PostPageProps> = () => {
                   router={router}
                 />
                 <Comments
-                  user={user}
-                  community={community as string}
+                  user={user as User}
+                  communityId={postStateValue.selectedPost?.communityId as string}
                   selectedPost={postStateValue.selectedPost}
                 />
               </>
