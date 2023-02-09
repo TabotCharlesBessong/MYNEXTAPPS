@@ -2,9 +2,23 @@
 // eslint-disable @next/next/no-img-element
 // import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from "react";
+import {Store} from '../utils/Store'
 
 const ProductItem = ({product}) => {
+	const {state , dispatch } = useContext(Store);
+	const addToCartHandler = () => {
+		const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
+		const quantity = existItem ? existItem.quantity + 1 : 1;
+
+		if (product.countInStock < quantity) {
+			alert("Product is out of stock");
+			return;
+		}
+		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+	};
+
+
   return (
 		<div className="card">
 			<Link href={`/products/${product.slug}`}>
@@ -20,7 +34,7 @@ const ProductItem = ({product}) => {
 				</Link>
 				<p className='mb-2' >{product.brand}</p>
 				<p>${product.price}</p>
-        <button className='primary-button' type='button'>
+        <button onClick={addToCartHandler} className='primary-button' type='button'>
           Add to cart
         </button>
 			</div>

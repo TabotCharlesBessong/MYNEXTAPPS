@@ -1,11 +1,12 @@
 import React from 'react';
-
-// import '../styles/global.scss';
+import {StoreProvider} from '../utils/Store'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <StoreProvider>
+      <Component {...pageProps} />
+    </StoreProvider>
   );
 }
 

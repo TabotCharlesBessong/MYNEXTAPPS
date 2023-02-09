@@ -1,5 +1,6 @@
 
-import React from 'react'
+import React,{useContext} from 'react'
+import {Store} from '../../utils/Store'
 import {useRouter} from 'next/router'
 import data from '../../utils/data'
 import {Layout} from '../../components'
@@ -7,12 +8,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const ProductPage = () => {
+	const {state , dispatch} = useContext(Store)
   const {query} = useRouter()
   const {slug} = query
   const product = data.products.find((x) => x.slug === slug)
 
   const addToCartHandler = () => {
+		const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
+		const quantity = existItem ? existItem.quantity + 1 : 1
 
+		if(product.countInStock < quantity){
+			alert('Product is out of stock')
+			return
+		}
+    dispatch({type:'CART_ADD_ITEM',payload:{...product,quantity}})
   }
 
   if(!product){
