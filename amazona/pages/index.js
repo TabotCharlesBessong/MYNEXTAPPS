@@ -1,12 +1,10 @@
+import { Layout } from "../components";
 
-
-export default function Home({ posts }) {
+export default function Home() {
   return (
-    <div className="container mx-auto px-10 mb-8">
-      <h1 className="text-5xl text-orange-600 text-center">
-        Hello my world
-      </h1>
-    </div>
+    <Layout title='Homepage' >
+      <h1 className="text-3xl">Hello world</h1>
+    </Layout>
   );
 }
 
