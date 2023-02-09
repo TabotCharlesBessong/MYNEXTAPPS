@@ -17,7 +17,7 @@ const Directory:React.FC= () => {
       <MenuButton onClick={toggleMenuOpen} mr={2} ml={{base:0,md:2}} cursor='pointer' padding='0px 6px' borderRadius={4} _hover={{outline:'1px solid',outlineColor:'gray.200'}} >
         <Flex align='center' justify='space-between' width={{base:'auto',lg:'200px'}} >
           <Flex align='center'>
-            {directoryState.selectedMenuItem.imageURL ? <Image src={directoryState.selectedMenuItem.imageURL} alt='' /> : <Icon as={directoryState.selectedMenuItem.icon} mr={{base:1,md:2}} color={directoryState.selectedMenuItem.iconColor} /> }
+            {directoryState.selectedMenuItem.imageURL ? <Image width='50' height='50' rounded='full' src={directoryState.selectedMenuItem.imageURL} alt='' /> : <Icon as={directoryState.selectedMenuItem.icon} mr={{base:1,md:2}} color={directoryState.selectedMenuItem.iconColor} /> }
             <Icon fontSize={24} mr={{base:1,md:2}} as={TiHome} />
             <Flex display={{base:'none',lg:'flex'}} >
               <Text fontSize='10pt' fontWeight={600} >
