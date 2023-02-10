@@ -6,25 +6,27 @@ import { auth } from '@/src/firebase/clientApp'
 import { FIREBASE_ERRORS } from '@/src/firebase/errors'
 import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth'
 
-type LoginProps = {
 
-}
 
-const Login:React.FC<LoginProps> = () => {
+const Login:React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState)
   const [loginForm,setLoginForm] = useState({
     email:'',
     password:''
   })
 
+  // we use the firebase base hook library for react for the login 
   const [
     signInWithEmailAndPassword,
     user,
     loading,
     userError
   ] = useSignInWithEmailAndPassword(auth)
+
+  // since this is typescript , we have to use e:React.ChangeEvent<HTMLInputElement> for this particular element has the values will come from an html which is an input
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm(prev => ({
+      // keep everything the same but change only the input element that has changed based on its target
       ...prev,
       [e.target.name]:e.target.value
     }))
@@ -33,6 +35,7 @@ const Login:React.FC<LoginProps> = () => {
   // firebase logic
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    // firebase handles everything
     signInWithEmailAndPassword(loginForm.email,loginForm.password)
   }
   return (
