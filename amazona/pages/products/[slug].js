@@ -9,6 +9,7 @@ import Image from 'next/image'
 
 const ProductPage = () => {
 	const {state , dispatch} = useContext(Store)
+	const router = useRouter()
   const {query} = useRouter()
   const {slug} = query
   const product = data.products.find((x) => x.slug === slug)
@@ -22,6 +23,7 @@ const ProductPage = () => {
 			return
 		}
     dispatch({type:'CART_ADD_ITEM',payload:{...product,quantity}})
+		router.push('/cart')
   }
 
   if(!product){
