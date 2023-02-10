@@ -19,6 +19,7 @@ const Signup:React.FC = () => {
 
   const [error, setError] = useState('')
 
+  // we use react-firebase-hook function
   const [
     createUserWithEmailAndPassword,
     userCreate,
@@ -43,21 +44,20 @@ const Signup:React.FC = () => {
     if(signupForm.password !== signupForm.confirmPassword){
       // set an error
       setError('Password do not match')
-      // setSignupForm({
-      //   password:'',
-      //   confirmPassword:''
-      // })
       return
     } 
      createUserWithEmailAndPassword(signupForm.email,signupForm.password)
     
   }
 
+
+  // saving user to our firestore database under the users collection
   const createUserDocument = async(user:User) => {
     await addDoc(collection(firestore,'users'),JSON.parse(JSON.stringify(user)))
   }
 
   useEffect(()=>{
+    // we save to the database everytime a user signup
     if(userCreate)  createUserDocument(userCreate.user)
   },[userCreate])
   return (
