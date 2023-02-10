@@ -1,11 +1,11 @@
 import { atom } from "recoil";
-import { FieldValue, Timestamp } from "firebase/firestore";
+import {  Timestamp } from "firebase/firestore";
 
 export interface Community {
   id: string;
   creatorId: string;
   numberOfMembers: number;
-  privacyType: "public" | "restrictied" | "private";
+  privacyType: "public" | "restricted" | "private";
   createdAt?: Timestamp;
   imageURL?: string;
 }

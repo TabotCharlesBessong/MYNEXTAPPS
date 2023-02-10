@@ -6,7 +6,6 @@ import { useSetRecoilState } from "recoil";
 import {TiHome} from 'react-icons/ti'
 import {Communities} from '../../index'
 import useDirectory from '@/src/hooks/useDirectory'
-import { FaReddit } from 'react-icons/fa';
 
 
 const Directory:React.FC= () => {
