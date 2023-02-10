@@ -2,10 +2,12 @@
 // eslint-disable @next/next/no-img-element
 // import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { useContext } from "react";
 import {Store} from '../utils/Store'
 
 const ProductItem = ({product}) => {
+	const router = useRouter()
 	const {state , dispatch } = useContext(Store);
 	const addToCartHandler = () => {
 		const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
@@ -16,6 +18,7 @@ const ProductItem = ({product}) => {
 			return;
 		}
 		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+		router.push('/cart')
 	};
 
 
