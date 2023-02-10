@@ -44,6 +44,28 @@ const reducer = (state,action) => {
 				},
 			};
 
+		case "CART_CLEAR_ITEMS":
+			return { ...state, cart: { ...state.cart, cartItems: [] } };
+
+		case "SAVE_SHIPPING_ADDRESS":
+			return {
+				...state,
+				cart: {
+					...state.cart,
+					shippingAddress: {
+						...state.cart.shippingAddress,
+						...action.payload,
+					},
+				},
+			};
+		case "SAVE_PAYMENT_METHOD":
+			return {
+				...state,
+				cart: {
+					...state.cart,
+					paymentMethod: action.payload,
+				},
+			};
 		default:
 			return state;
 	}
