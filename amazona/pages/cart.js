@@ -5,7 +5,7 @@ import { XCircleIcon } from "@heroicons/react/outline";
 import {Layout} from "../components";
 import { Store } from "../utils/Store";
 import { useRouter } from "next/router";
-// import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 // import axios from "axios";
 import { toast } from "react-toastify";
 import data from '../utils/data'
@@ -116,4 +116,4 @@ const CartScreen = () => {
 	);
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen),{ssr:false});
