@@ -84,19 +84,19 @@ const Layout = ({children,title}) => {
 											</Menu.Item>
 										)}
 										<Menu.Item>
-											<a
+											<span
 												className="dropdown-link"
-												href="#"
+												// href="#"
 												onClick={logoutClickHandler}
 											>
 												Logout
-											</a>
+											</span>
 										</Menu.Item>
 									</Menu.Items>
 								</Menu>
 							) : (
 								<Link href="/login" className="p-2">
-								Login
+									Login
 								</Link>
 							)}
 						</div>
