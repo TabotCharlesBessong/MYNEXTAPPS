@@ -8,7 +8,10 @@ import {Layout} from '../../components'
 import Link from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
+<<<<<<< HEAD
 import {toast} from 'react-toastify'
+=======
+>>>>>>> 4d0f6504c1406c99a8b59b7c69218ce033a972a8
 
 const ProductPage = ({product}) => {
 	const {state , dispatch} = useContext(Store)
@@ -20,7 +23,11 @@ const ProductPage = ({product}) => {
 
 		const { data } = await axios.get(`/api/products/${product._id}`);
 		if (data.countInStock < quantity) {
+<<<<<<< HEAD
 			toast.error("Product is out of stock");
+=======
+			alert("Product is out of stock");
+>>>>>>> 4d0f6504c1406c99a8b59b7c69218ce033a972a8
 			return;
 		}
 		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });

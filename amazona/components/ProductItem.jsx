@@ -5,7 +5,10 @@ import Link from 'next/link'
 import React, { useContext } from "react";
 import {Store} from '../utils/Store'
 import axios from 'axios'
+<<<<<<< HEAD
 import {toast} from 'react-toastify'
+=======
+>>>>>>> 4d0f6504c1406c99a8b59b7c69218ce033a972a8
 
 const ProductItem = ({product}) => {
 	const {state , dispatch } = useContext(Store);
@@ -15,11 +18,18 @@ const ProductItem = ({product}) => {
 
 		const { data } = await axios.get(`/api/products/${product._id}`);
 		if (data.countInStock < quantity) {
+<<<<<<< HEAD
 			toast.error("Product is out of stock");
 			return;
 		}
 		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
 		toast.success('Product added to Cart')
+=======
+			alert("Product is out of stock");
+			return;
+		}
+		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+>>>>>>> 4d0f6504c1406c99a8b59b7c69218ce033a972a8
 	};
 
 
