@@ -19,19 +19,19 @@ export default function ShippingScreen() {
 	const { shippingAddress } = cart;
 	const router = useRouter();
 
-	// useEffect(() => {
-	// 	// Check for the presence of the window object
-	// 	if (typeof window !== 'undefined') {
-	// 	// Hydrate the data on the server side
-	// 	setValue("fullName", shippingAddress.fullName);
-	// 	setValue("address", shippingAddress.address);
-	// 	setValue("city", shippingAddress.city);
-	// 	setValue("postalCode", shippingAddress.postalCode);
-  //   setValue("country", shippingAddress.country);
-  //   }
-	// }, [setValue, shippingAddress]);
+	useEffect(() => {
+		// Check for the presence of the window object
+		if (typeof window !== 'undefined') {
+		// Hydrate the data on the server side
+		setValue("fullName", shippingAddress.fullName);
+		setValue("address", shippingAddress.address);
+		setValue("city", shippingAddress.city);
+		setValue("postalCode", shippingAddress.postalCode);
+    setValue("country", shippingAddress.country);
+    }
+	}, [setValue, shippingAddress]);
 
-	const submitHandler = ({ fullName='Charles Tabot', address='Mol', city='Buea', postalCode='237', country='Cameroon' }) => {
+	const submitHandler = ({ fullName, address, city, postalCode, country}) => {
 		dispatch({
 			type: "SAVE_SHIPPING_ADDRESS",
 			payload: { fullName, address, city, postalCode, country },

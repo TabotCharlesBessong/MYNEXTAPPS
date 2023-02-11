@@ -38,7 +38,7 @@ const Layout = ({children,title}) => {
 						>
 							amazona
 						</Link>
-						<div>
+						<div className='flex align-super' >
 							<Link
 								className="p-2"
 								href="/cart"
