@@ -22,12 +22,12 @@ export default function Loading() {
 	};
   return (
 		mounted && (
-			<div className="">
+			<div className="pt-2">
 				{status === "loading" ? (
 					"Loading"
 				) : session?.user ? (
 					<Menu as="div" className="relative inline-block">
-						<Menu.Button className="text-blue-600 pt-2">
+						<Menu.Button className="text-blue-600">
 							{session.user.name}
 						</Menu.Button>
 						<Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
@@ -54,6 +54,7 @@ export default function Loading() {
 							<Menu.Item>
 								<span
 									className="dropdown-link"
+									style={{cursor:'pointer'}}
 									// href="#"
 									onClick={logoutClickHandler}
 								>
