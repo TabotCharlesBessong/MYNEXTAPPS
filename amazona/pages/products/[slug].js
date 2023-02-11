@@ -8,6 +8,7 @@ import {Layout} from '../../components'
 import Link from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
+import dynamic from "next/dynamic";
 import {toast} from 'react-toastify'
 
 const ProductPage = ({product}) => {
@@ -84,7 +85,7 @@ const ProductPage = ({product}) => {
 	);
 }
 
-export default ProductPage
+export default dynamic(() => Promise.resolve(ProductPage), { ssr: false });
 
 export async function getServerSideProps(context) {
 	const { params } = context;
