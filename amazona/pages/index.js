@@ -1,8 +1,9 @@
 import { Layout, ProductItem } from "../components";
 import Product from "../models/Product";
 import db from "../utils/db";
+import dynamic from 'next/dynamic'
 
-export default function Home({products }) {
+const  Home= ({products }) =>{
   return (
     <Layout title='Home page' >
       <div className='grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4' >
@@ -16,6 +17,8 @@ export default function Home({products }) {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(Home),{ssr:false})
 
 export async function getServerSideProps() {
 	await db.connect();
