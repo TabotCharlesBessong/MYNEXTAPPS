@@ -7,22 +7,25 @@ import db from "../../utils/db";
 import {Layout} from '../../components'
 import Link from 'next/link'
 import Image from 'next/image'
+import axios from 'axios'
+import {toast} from 'react-toastify'
 
 const ProductPage = ({product}) => {
 	const {state , dispatch} = useContext(Store)
 	const router = useRouter()
 
-  const addToCartHandler = () => {
-		const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
-		const quantity = existItem ? existItem.quantity + 1 : 1
+  const addToCartHandler = async () => {
+		const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
+		const quantity = existItem ? existItem.quantity + 1 : 1;
 
-		if(product.countInStock < quantity){
-			alert('Product is out of stock')
-			return
+		const { data } = await axios.get(`/api/products/${product._id}`);
+		if (data.countInStock < quantity) {
+			toast.error("Product is out of stock");
+			return;
 		}
-    dispatch({type:'CART_ADD_ITEM',payload:{...product,quantity}})
-		router.push('/cart')
-  }
+		dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+		router.push("/cart");
+	};
 
   if(!product){
     return <div>Product not found</div>
