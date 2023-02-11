@@ -66,11 +66,14 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       // check that name is not taken
 
     try{
+      // creating a reference for the collection
       const communityDocRef = doc(firestore,'communities',name)
 
+      // running a transaction
       await runTransaction(firestore,async(transaction)=>{
         const communityDoc = await transaction.get(communityDocRef)
     
+        // if community exist , prompt user to create one with another name
         if(communityDoc.exists()) {
           throw new Error(`Sorry, r${name} is taken, try another`)
         }
@@ -83,6 +86,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         handleClose()
 
         // ceate community snippet on user
+        // transactions are used as relationships in sql. 
+        // so here we are creating  a transaction to show the relationship between a user and the community they have created
         transaction.set(doc(firestore,`users/${user?.uid}/communitySnippets`,name),{
           communityId:name,
           isModerator:true,
@@ -118,7 +123,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       </ModalHeader>
       <Box pr={3} pl={3}>
         <Divider />
-        <ModalCloseButton />
+        <ModalCloseButton onClick={handleClose} />
         <ModalBody display="flex" flexDirection="column" padding="10px 0px">
           <Text fontWeight={600} fontSize={15}>
             Name
@@ -159,9 +164,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               Community Type
             </Text>
             <Stack spacing={2} pt={1}>
+              {/* so what we did with this checkbox is that if one is selected when another one as already been selected, we diselect the first one and select only the new one since a community has only one type, I dont know why reddit does this but I just had to clone it the same whay they do it on their platform */}
               <Checkbox
                 colorScheme="blue"
                 name="public"
+                // so we used the isChecked property
                 isChecked={communityType === "public"}
                 onChange={onCommunityTypeChange}
               >
@@ -178,6 +185,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               <Checkbox
                 colorScheme="blue"
                 name="restricted"
+                // so we used the isChecked property
                 isChecked={communityType === "restricted"}
                 onChange={onCommunityTypeChange}
               >
@@ -195,6 +203,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               <Checkbox
                 colorScheme="blue"
                 name="private"
+                // so we used the isChecked property
                 isChecked={communityType === "private"}
                 onChange={onCommunityTypeChange}
               >

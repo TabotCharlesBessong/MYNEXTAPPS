@@ -48,6 +48,7 @@ const formTabs: TabItem[] = [
 
 ]
 
+// this is the type of the type item we are going to have
 export type TabItem = {
   title:string,
   icon: typeof Icon.arguments
