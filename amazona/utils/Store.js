@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export const Store = createContext()
 
 const initialState = {
-  cart:Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : {cartItems:[],shippingAddress:{}}
+  cart:Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : {cartItems:[],shippingAddress:{},paymentMethod:''}
 }
 
 const reducer = (state,action) => {
@@ -32,8 +32,7 @@ const reducer = (state,action) => {
 			);
 			Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
 			return { ...state, cart: { ...state.cart, cartItems } };
-		}
-
+}
 		case "CART_RESET":
 			return {
 				...state,
@@ -43,10 +42,8 @@ const reducer = (state,action) => {
 					paymentMethod: "",
 				},
 			};
-
 		case "CART_CLEAR_ITEMS":
 			return { ...state, cart: { ...state.cart, cartItems: [] } };
-
 		case "SAVE_SHIPPING_ADDRESS":
 			return {
 				...state,
