@@ -4,8 +4,8 @@ import React from "react";
 const DropdownLink = (props) => {
 	let { href, children, ...rest } = props;
 	return (
-		<Link href={href} {...rest}>
-      {children}
+		<Link suppressHydrationWarning={true} href={href} {...rest}>
+			{children}
 		</Link>
 	);
 }

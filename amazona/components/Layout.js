@@ -4,16 +4,10 @@ import React, { useContext,useState,useEffect } from "react";
 import { Store } from "../utils/Store";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
-import {useSession} from 'next-auth/react'
-import { Menu } from '@headlessui/react';
-import {DropdownLink} from '../components'
-import Cookies from 'js-cookie'
-import {signOut} from 'next-auth/react'
 import Loading from './Loading';
 
 const Layout = ({children,title}) => {
-	const {status,data:session} = useSession()
-	const { state, dispatch } = useContext(Store);
+	const { state } = useContext(Store);
   const {cart} = state
   const [cartItemsCount,setCartItemsCount] = useState(0)
 
@@ -21,11 +15,6 @@ const Layout = ({children,title}) => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   },[cart.cartItems])
 
-	const logoutClickHandler = () => {
-		Cookies.remove("cart");
-		dispatch({ type: "CART_RESET" });
-		signOut({ callbackUrl: "/login" });
-	};
 	
   return (
 		<>
@@ -42,19 +31,27 @@ const Layout = ({children,title}) => {
 			<div className="flex min-h-screen flex-col justify-between">
 				<header>
 					<nav className="flex h-12 justify-between shadow-md items-center px-4">
-						<Link className="text-lg font-bold" href="/">
+						<Link
+							suppressHydrationWarning={true}
+							className="text-lg font-bold"
+							href="/"
+						>
 							amazona
 						</Link>
 						<div>
-							<Link className="p-2" href="/cart" suppressHydrationWarning={true}>
+							<Link
+								className="p-2"
+								href="/cart"
+								suppressHydrationWarning={true}
+							>
 								Cart
 								{cart.cartItems.length > 0 ? (
 									<span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
 										{cartItemsCount}
 									</span>
-								):null}
+								) : null}
 							</Link>
-							<Loading/>
+							<Loading />
 						</div>
 					</nav>
 				</header>
