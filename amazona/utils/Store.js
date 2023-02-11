@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export const Store = createContext()
 
 const initialState = {
-  cart:Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : {cartItems:[]}
+  cart:Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : {cartItems:[],shippingAddress:{}}
 }
 
 const reducer = (state,action) => {
