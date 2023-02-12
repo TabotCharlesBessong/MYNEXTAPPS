@@ -4,8 +4,10 @@ const Home:React.FC  = () => {
   
 
   return (
-    <div>Hello world</div>
-  );
+		<div>
+			<h1 className="text-5xl text-orange-700 font-bold underline">Hello world!</h1>
+		</div>
+	);
 };
 
 export default Home;
