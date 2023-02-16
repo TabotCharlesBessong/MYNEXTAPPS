@@ -45,6 +45,7 @@ specifiers:
   react: 18.2.0
   react-chartjs-2: ^5.2.0
   react-dom: 18.2.0
+  react-firebase-hooks: ^5.1.1
   react-ga: ^3.3.1
   react-hook-form: ^7.43.1
   react-horizontal-scrolling-menu: ^3.2.3
@@ -99,6 +100,7 @@ dependencies:
   react: 18.2.0
   react-chartjs-2: 5.2.0_t5yjg6ab35jnsudnh2qdighszm
   react-dom: 18.2.0_react@18.2.0
+  react-firebase-hooks: 5.1.1_aqcelxavj7bzvzjrob2hajgybq
   react-ga: 3.3.1_react@18.2.0
   react-hook-form: 7.43.1_react@18.2.0
   react-horizontal-scrolling-menu: 3.2.3_react@18.2.0
@@ -6694,6 +6696,16 @@ packages:
 
   /react-fast-compare/3.2.0:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
+    dev: false
+
+  /react-firebase-hooks/5.1.1_aqcelxavj7bzvzjrob2hajgybq:
+    resolution: {integrity: sha512-y2UpWs82xs+39q5Rc/wq316ca52QsC0n8m801V+yM4IC4hbfOL4yQPVSh7w+ydstdvjN9F+lvs1WrO2VYxpmdA==}
+    peerDependencies:
+      firebase: '>= 9.0.0'
+      react: '>= 16.8.0'
+    dependencies:
+      firebase: 9.17.1
+      react: 18.2.0
     dev: false
 
   /react-focus-lock/2.9.3_pmekkgnqduwlme35zpnqhenc34:
