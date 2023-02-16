@@ -41,17 +41,25 @@ const ChatPage = () => {
 			);
 		});
 
-	useEffect(
-		() =>
-			setTimeout(
+		const timeout = () =>{
+setTimeout(
 				bottomOfChat.current.scrollIntoView({
 					behavior: "smooth",
 					block: "start",
 				}),
 				100
-			),
-		[messages]
-	);
+			)
+		}
+
+	// useEffect(
+	// 	() =>
+			
+	// 	[messages]
+	// );
+
+	useEffect(()=>{
+    timeout
+	},[messages])
 
   return (
 		<>
