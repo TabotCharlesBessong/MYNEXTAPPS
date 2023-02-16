@@ -1,9 +1,15 @@
 import { Flex ,Text} from '@chakra-ui/react'
 import React from 'react'
 import { Bottombar, Sidebar,Topbar } from '../../components'
+import Head from 'next/head'
 
 const ChatPage = () => {
   return (
+		<>
+
+		<Head>
+        <title>FIREBASE CHAT APP</title>
+    </Head>
 		<Flex flex={1} h="100vh">
 			<Sidebar />
 			<Flex flex={1}>
@@ -233,6 +239,7 @@ const ChatPage = () => {
 				</Flex>
 			</Flex>
 		</Flex>
+		</>
 	);
 }
 
