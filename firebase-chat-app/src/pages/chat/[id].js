@@ -2,243 +2,83 @@ import { Flex ,Text} from '@chakra-ui/react'
 import React from 'react'
 import { Bottombar, Sidebar,Topbar } from '../../components'
 import Head from 'next/head'
+import { useRouter } from "next/router";
+import {
+	useCollectionData,
+	useDocumentData,
+} from "react-firebase-hooks/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, doc, orderBy, query } from "firebase/firestore";
+import getOtherEmail from "../../../utils/getOtherEmail";
+import { useRef, useEffect } from "react";
+import {auth,db} from '../../firebase'
 
 const ChatPage = () => {
+	const router = useRouter();
+	const { id } = router.query;
+	const [user] = useAuthState(auth);
+	const [chat] = useDocumentData(doc(db, "chats", id));
+	const q = query(collection(db, `chats/${id}/messages`), orderBy("timestamp"));
+	const [messages] = useCollectionData(q);
+	const bottomOfChat = useRef();
+
+	const getMessages = () =>
+		messages?.map((msg) => {
+			const sender = msg.sender === user.email;
+			return (
+				<Flex
+					key={Math.random()}
+					alignSelf={sender ? "flex-start" : "flex-end"}
+					bg={sender ? "blue.100" : "green.100"}
+					w="fit-content"
+					minWidth="100px"
+					borderRadius="lg"
+					p={3}
+					m={1}
+				>
+					<Text>{msg.text}</Text>
+				</Flex>
+			);
+		});
+
+	useEffect(
+		() =>
+			setTimeout(
+				bottomOfChat.current.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+				}),
+				100
+			),
+		[messages]
+	);
+
   return (
 		<>
-
-		<Head>
-        <title>FIREBASE CHAT APP</title>
-    </Head>
-		<Flex flex={1} h="100vh">
-			<Sidebar />
-			<Flex flex={1}>
-				<Flex direction="column">
-					<Topbar />
-					<Flex
-						sx={{ scrollbarWidth: "none" }}
-						overflowX="scroll"
-						pt={4}
-						mx="auto"
-						p={3}
-						direction="column"
-						flex={1}
-					>
+			<Head>
+				<title>FIREBASE CHAT APP</title>
+			</Head>
+			<Flex flex={1} h="100vh">
+				<Sidebar />
+				<Flex flex={1}>
+					<Flex direction="column">
+						<Topbar email={getOtherEmail(chat?.users, user)} />
 						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							maxW="600px"
-							borderRadius="lg"
+							sx={{ scrollbarWidth: "none" }}
+							overflowX="scroll"
+							pt={4}
+							mx={5}
 							p={3}
+							direction="column"
+							flex={1}
 						>
-							<Text>
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-								Incidunt perspiciatis nostrum itaque asperiores. Inventore cum
-								numquam mollitia ab! Nulla quam deserunt officiis aliquid iure
-								ad praesentium. Asperiores ex quibusdam facere. Fuga, fugit
-								facere odio commodi eum quod perspiciatis autem aperiam?{" "}
-							</Text>
+							{getMessages()}
+							<div ref={bottomOfChat}></div>
 						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							maxW="600px"
-							p={3}
-						>
-							<Text>This </Text>
-						</Flex>
-						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							m={2}
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							m={2}
-							w="fit-content"
-							bg="green.100"
-							alignSelf="flex-end"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-								Incidunt perspiciatis nostrum itaque asperiores. Inventore cum
-								numquam mollitia ab! Nulla quam deserunt officiis aliquid iure
-								ad praesentium. Asperiores ex quibusdam facere. Fuga, fugit
-								facere odio commodi eum quod perspiciatis autem aperiam?{" "}
-							</Text>
-						</Flex>
-						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-								Incidunt perspiciatis nostrum itaque asperiores. Inventore cum
-								numquam mollitia ab! Nulla quam deserunt officiis aliquid iure
-								ad praesentium. Asperiores ex quibusdam facere. Fuga, fugit
-								facere odio commodi eum quod perspiciatis autem aperiam?{" "}
-							</Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This </Text>
-						</Flex>
-						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-								Incidunt perspiciatis nostrum itaque asperiores. Inventore cum
-								numquam mollitia ab! Nulla quam deserunt officiis aliquid iure
-								ad praesentium. Asperiores ex quibusdam facere. Fuga, fugit
-								facere odio commodi eum quod perspiciatis autem aperiam?{" "}
-							</Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This </Text>
-						</Flex>
-						<Flex
-							bg="blue.100"
-							m={2}
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
-						<Flex
-							bg="green.100"
-							m={2}
-							alignSelf="flex-end"
-							w="fit-content"
-							minW="100px"
-							borderRadius="lg"
-							p={3}
-							maxW="600px"
-						>
-							<Text>This is a dummy </Text>
-						</Flex>
+						<Bottombar />
 					</Flex>
-					<Bottombar />
 				</Flex>
 			</Flex>
-		</Flex>
 		</>
 	);
 }
