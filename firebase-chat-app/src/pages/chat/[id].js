@@ -83,7 +83,7 @@ setTimeout(
 							{getMessages()}
 							<div ref={bottomOfChat}></div>
 						</Flex>
-						<Bottombar />
+						<Bottombar id={id} user={user} />
 					</Flex>
 				</Flex>
 			</Flex>
