@@ -1,11 +1,13 @@
 
 import dynamic from "next/dynamic";
+import {Sidebar} from '../components'
+import {Box} from '@chakra-ui/react'
 
 const  Home= () =>{
   return (
-    <div className=''>
-      <h1 className="text-4xl text-red-600 text-center" >Hello dude</h1>
-    </div>
+    <Box h='100vh'>
+      <Sidebar />
+    </Box>
   );
 }
 
