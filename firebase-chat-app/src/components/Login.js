@@ -27,12 +27,8 @@ const Login = () => {
 					<Box bg="blue.500" w="fit-content" p={5} rounded="3xl" boxShadow="md">
 						<ChatIcon w="100px" h="100px" color="white" />
 					</Box>
-					<Button onClick={() => signInWithGoogle("",{
-						prompt:"select an account"
-					})} mb={4} boxShadow="md">Sign In with Google</Button>
-					<Button onClick={() => signInWithGithub("",{
-						prompt:"select an account"
-					})} boxShadow="md">Sign In with Github</Button>
+					<Button onClick={() => signInWithGoogle()} mb={4} boxShadow="md">Sign In with Google</Button>
+					<Button onClick={() => signInWithGithub()} boxShadow="md">Sign In with Github</Button>
 				</Stack>
 			</Center>
 		</>
