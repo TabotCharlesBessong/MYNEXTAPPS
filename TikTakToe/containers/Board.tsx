@@ -14,11 +14,15 @@ function calculateWinner(squares: Player[]) {
     [2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
+
+    // getting combination of winning grids
     const [a, b, c] = lines[i];
+    console.log([a,b,c])
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
+  console.log(lines.length)
   return null;
 }
 
