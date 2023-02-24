@@ -1,0 +1,35 @@
+.grid {
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  font-size: 5rem;
+  color: #e8e5e5;
+  border: solid 1px black;
+}
+
+.square_o {
+  background-color: rgb(87, 218, 21);
+}
+
+.square_x {
+  background-color: crimson;
+}
+
+.reset {
+  margin-top: 2rem;
+  font-size: 2rem;
+  background-color: aqua;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+p {
+  font-size: 2rem;
+}
