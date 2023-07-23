@@ -1,7 +1,6 @@
-
 "use client";
 
-import {signIn} from 'next-auth/react'
+import { signIn } from "next-auth/react";
 import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
@@ -11,13 +10,13 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { Button, Heading, Input, Modal } from "../index";
 import { toast } from "react-hot-toast";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -32,29 +31,37 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    
-    signIn('credentials',{
+
+    signIn("credentials", {
       ...data,
-      redirect:false
-    })
-    .then((callback) => {
-      setIsLoading(false)
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
 
-      if(callback?.ok) {
-        toast.success('Logged In')
-        router.refresh()
-        loginModal.onClose()
+      if (callback?.ok) {
+        toast.success("Logged In");
+        router.refresh();
+        loginModal.onClose();
       }
 
-      if(callback?.error) {
-        toast.error(callback.error)
+      if (callback?.error) {
+        toast.error(callback.error);
       }
-    })
+    });
   };
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome To AirBnB" subTitle="Sign into your account" center />
+      <Heading
+        title="Welcome To AirBnB"
+        subTitle="Sign into your account"
+        center
+      />
       <Input
         id="email"
         label="Email"
@@ -82,19 +89,22 @@ const LoginModal = () => {
         outline
         label="Conitue With Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Conitue With Github"
         icon={AiFillGithub}
-        onClick={() => signIn('github')}
+        onClick={() => signIn("github")}
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="text-center flex flex-row items-center gap-4 justify-center">
-          <div>Already have an account</div>
-          <div onClick={loginModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">
-            Log In
+          <div>First time using AirBnB</div>
+          <div
+            onClick={toggle}
+            className="text-neutral-800 cursor-pointer hover:underline"
+          >
+            Create Account
           </div>
         </div>
       </div>
