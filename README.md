@@ -1,8 +1,10 @@
-# MYNEXTAPPS
-## Next js is a react framework which runs on both client and server side
 
-# WHAT IS NEXTJS
-## Next.js is a React framework that gives you building blocks to create web applications. By framework, we mean Next.js handles the tooling and configuration
+  # Learning Locofy
 
-# WHAT IS NEXTJS USED FOR
-## Next. js is a React framework that enables several extra features, including server-side rendering and generating static websites. React is a JavaScript library that is traditionally used to build web applications rendered in the client's browser with JavaScript.
+  Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
+
+  To preview and run the project on your device:
+  1) Open project folder in <a href="https://code.visualstudio.com/download">Visual Studio Code</a>
+  2) In the terminal, run `npm install`
+  3) Run `npm run dev` to view project in browser
+  
