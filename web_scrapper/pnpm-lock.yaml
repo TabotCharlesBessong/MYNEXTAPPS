@@ -40,12 +40,15 @@ devDependencies:
   '@types/node':
     specifier: latest
     version: 20.8.2
+  '@types/nodemailer':
+    specifier: ^6.4.11
+    version: 6.4.11
   '@types/react':
     specifier: latest
-    version: 18.2.24
+    version: 18.2.25
   '@types/react-dom':
     specifier: latest
-    version: 18.2.9
+    version: 18.2.10
   autoprefixer:
     specifier: latest
     version: 10.4.16(postcss@8.4.31)
@@ -231,18 +234,24 @@ packages:
   /@types/node@20.8.2:
     resolution: {integrity: sha512-Vvycsc9FQdwhxE3y3DzeIxuEJbWGDsnrxvMADzTDF/lcdR9/K+AQIeAghTQsHtotg/q0j3WEOYS/jQgSdWue3w==}
 
+  /@types/nodemailer@6.4.11:
+    resolution: {integrity: sha512-Ld2c0frwpGT4VseuoeboCXQ7UJIkK3X7Lx/4YsZEiUHtHsthWAOCYtf6PAiLhMtfwV0cWJRabLBS3+LD8x6Nrw==}
+    dependencies:
+      '@types/node': 20.8.2
+    dev: true
+
   /@types/prop-types@15.7.8:
     resolution: {integrity: sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==}
     dev: true
 
-  /@types/react-dom@18.2.9:
-    resolution: {integrity: sha512-6nNhVzZ9joQ6F7lozrASuQKC0Kf6ArYMU+DqA2ZrUbB+d+9lC6ZLn1GxiEBI1edmAwvTULtuJ6uPZpv3XudwUg==}
+  /@types/react-dom@18.2.10:
+    resolution: {integrity: sha512-5VEC5RgXIk1HHdyN1pHlg0cOqnxHzvPGpMMyGAP5qSaDRmyZNDaQ0kkVAkK6NYlDhP6YBID3llaXlmAS/mdgCA==}
     dependencies:
-      '@types/react': 18.2.24
+      '@types/react': 18.2.25
     dev: true
 
-  /@types/react@18.2.24:
-    resolution: {integrity: sha512-Ee0Jt4sbJxMu1iDcetZEIKQr99J1Zfb6D4F3qfUWoR1JpInkY1Wdg4WwCyBjL257D0+jGqSl1twBjV8iCaC0Aw==}
+  /@types/react@18.2.25:
+    resolution: {integrity: sha512-24xqse6+VByVLIr+xWaQ9muX1B4bXJKXBbjszbld/UEDslGLY53+ZucF44HCmLbMPejTzGG9XgR+3m2/Wqu1kw==}
     dependencies:
       '@types/prop-types': 15.7.8
       '@types/scheduler': 0.16.4
