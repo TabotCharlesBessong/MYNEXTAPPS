@@ -1,5 +1,5 @@
+import { Timestamp } from "firebase/firestore";
 import { atom } from "recoil";
-import {  Timestamp } from "firebase/firestore";
 
 export interface Community {
   id: string;

@@ -1,5 +1,5 @@
+import { Flex, Icon, Image, MenuItem } from "@chakra-ui/react";
 import React from "react";
-import { Flex, Icon, MenuItem, Image } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import useDirectory from "../../../hooks/useDirectory";
 
@@ -30,7 +30,13 @@ const MenuListItem: React.FC<DirectoryItemProps> = ({
     >
       <Flex alignItems="center">
         {imageURL ? (
-          <Image borderRadius="full" boxSize="18px" src={imageURL} mr={2} alt='' />
+          <Image
+            borderRadius="full"
+            boxSize="18px"
+            src={imageURL}
+            mr={2}
+            alt=""
+          />
         ) : (
           <Icon fontSize={20} mr={2} as={icon} color={iconColor} />
         )}

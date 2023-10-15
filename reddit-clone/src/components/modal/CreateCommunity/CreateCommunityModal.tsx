@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -14,15 +13,16 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { doc, runTransaction, serverTimestamp,getDoc,setDoc } from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { useSetRecoilState } from "recoil";
 import { communityState } from "../../../atoms/communitiesAtom";
-import { firestore,auth } from "../../../firebase/clientApp";
+import { auth, firestore } from "../../../firebase/clientApp";
 import ModalWrapper from "../ModalWrapper";
-import {useAuthState} from 'react-firebase-hooks/auth'
 
 type CreateCommunityModalProps = {
   isOpen: boolean;
@@ -42,7 +42,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [communityType, setCommunityType] = useState("public");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -55,51 +55,54 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
     if (nameError) setNameError("");
     const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-    if (format.test(name) || name.length < 3) {
+    if (format.test(name) || name.length < 3 || name.length > 21) {
       return setNameError(
         "Community names must be between 3–21 characters, and can only contain letters, numbers, or underscores."
       );
     }
 
-    setLoading(true)
+    setLoading(true);
     // create the community document in firestore
-      // check that name is not taken
+    // check that name is not taken
 
-    try{
+    try {
       // creating a reference for the collection
-      const communityDocRef = doc(firestore,'communities',name)
+      const communityDocRef = doc(firestore, "communities", name);
 
       // running a transaction
-      await runTransaction(firestore,async(transaction)=>{
-        const communityDoc = await transaction.get(communityDocRef)
-    
+      await runTransaction(firestore, async (transaction) => {
+        const communityDoc = await transaction.get(communityDocRef);
+
         // if community exist , prompt user to create one with another name
-        if(communityDoc.exists()) {
-          throw new Error(`Sorry, r${name} is taken, try another`)
+        if (communityDoc.exists()) {
+          throw new Error(`Sorry, r${name} is taken, try another`);
         }
         transaction.set(communityDocRef, {
-          creatorId:user?.uid,
-          createdAt:serverTimestamp(),
-          numberOfMembers:1,
-          privacyType:communityType
-        })
-        handleClose()
+          creatorId: user?.uid,
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          privacyType: communityType,
+        });
+        handleClose();
 
         // ceate community snippet on user
-        // transactions are used as relationships in sql. 
+        // transactions are used as relationships in sql.
         // so here we are creating  a transaction to show the relationship between a user and the community they have created
-        transaction.set(doc(firestore,`users/${user?.uid}/communitySnippets`,name),{
-          communityId:name,
-          isModerator:true,
-        })
-      })
-    }catch(error){
-      console.log('handleCreateComunnityError',error)
-      setNameError(error.message)
+        transaction.set(
+          doc(firestore, `users/${user?.uid}/communitySnippets`, name),
+          {
+            communityId: name,
+            isModerator: true,
+          }
+        );
+      });
+    } catch (error) {
+      console.log("handleCreateComunnityError", error);
+      setNameError(error.message);
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const onCommunityTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
