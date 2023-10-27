@@ -34,7 +34,7 @@ const Communities: React.FC<CommunitiesProps> = () => {
       </Box>
 
       <Box mt={3} mb={4}>
-        <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.100">
+        <Text pl={3} mb={1} fontSize="15pt" fontWeight={500} color="gray.700">
           My Communities
         </Text>
         <MenuItem

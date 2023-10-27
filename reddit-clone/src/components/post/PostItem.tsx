@@ -85,7 +85,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
     <Flex
       border="1px solid"
       bg="white"
-      borderColor={singlePostView ? "white" : "gray.300"}
+      borderColor={singlePostView ? "white" : "gray.600"}
       borderRadius={singlePostView ? "4px 4px 0px 0px" : 4}
       cursor={singlePostView ? "unset" : "pointer"}
       _hover={{ borderColor: singlePostView ? "none" : "gray.500" }}
@@ -135,7 +135,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
                       boxSize="18px"
                       src={post.communityImageURL}
                       mr={2}
-                      alt=''
+                      alt=""
                     />
                   ) : (
                     <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
