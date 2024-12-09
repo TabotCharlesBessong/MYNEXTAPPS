@@ -36,8 +36,11 @@ const routes = [
 ];
 
 const DesktopSidebar = () => {
-  const pathname = usePathname()
-  const activeRoute = routes.find((route) => route.href.length > 0 && pathname.includes(route.href)) || routes[0]
+  const pathname = usePathname();
+  const activeRoute =
+    routes.find(
+      (route) => route.href.length > 0 && pathname.includes(route.href)
+    ) || routes[0];
   return (
     <div className="hidden relative md:block min-w-[200px] max-w-[280px] h-screen overflow-hidden w-full bg-primary/5 dark:bg-secondary/30 dark:text-foreground text=muted-foreground border-r-2 border-separate ">
       <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4">
@@ -49,7 +52,12 @@ const DesktopSidebar = () => {
           <Link
             key={route.href}
             href={route.href}
-            className={buttonVariants({variant:activeRoute.href === route.href ? "sidebarActiveItem" : "sidebarItem"})}
+            className={buttonVariants({
+              variant:
+                activeRoute.href === route.href
+                  ? "sidebarActiveItem"
+                  : "sidebarItem",
+            })}
           >
             <route.icon className="h-5 w-5" />
             {route.label}
@@ -59,5 +67,13 @@ const DesktopSidebar = () => {
     </div>
   );
 };
+
+// export function MobileSidebar(){
+//   return (
+//     <div>
+//       Mobile sidebar
+//     </div>
+//   )
+// }
 
 export default DesktopSidebar;

@@ -1,6 +1,6 @@
 import BreadcrumpHeader from "@/components/BreadcrumpHeader";
 import DesktopSidebar from "@/components/Sidebar";
-import { ModeToggle } from "@/components/ThemeModeToggle";
+import ModeToggle from "@/components/ThemeModeToggle";
 import { SelectSeparator } from "@/components/ui/select";
 import React, { ReactNode } from "react";
 
