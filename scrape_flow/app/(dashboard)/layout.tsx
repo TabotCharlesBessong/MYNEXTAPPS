@@ -2,6 +2,7 @@ import BreadcrumpHeader from "@/components/BreadcrumpHeader";
 import DesktopSidebar from "@/components/Sidebar";
 import ModeToggle from "@/components/ThemeModeToggle";
 import { SelectSeparator } from "@/components/ui/select";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
@@ -13,6 +14,9 @@ const layout = ({ children }: { children: ReactNode }) => {
           <BreadcrumpHeader />
           <div className="gap-1 flex items-center">
             <ModeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </header>
         <SelectSeparator />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,15 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AppProviders>
-
-        {children}
-        </AppProviders>
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl={"/sign-in"} appearance={{
+      elements:{
+        formButtonPrimary:"bg-primary hover:bg-primary/90 text-sm !shadow-none"
+      }
+    }} >
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <AppProviders>{children}</AppProviders>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
