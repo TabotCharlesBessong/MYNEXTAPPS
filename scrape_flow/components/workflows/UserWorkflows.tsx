@@ -3,6 +3,7 @@ import { waitFor } from "@/lib/helper/waitFor";
 import React from "react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertCircle, InboxIcon } from "lucide-react";
+import CreateWorkflowDialog from "@/app/(dashboard)/workflows/_component/CreateWorkflowDialog";
 
 const UserWorkflows = async () => {
   await waitFor(3000);
@@ -33,6 +34,7 @@ const UserWorkflows = async () => {
             Click the link below to create your first workflow
           </p>
         </div>
+        <CreateWorkflowDialog triggerText="Create your first workflowa" />
       </div>
     );
   }
