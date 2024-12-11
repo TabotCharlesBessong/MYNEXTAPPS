@@ -6,7 +6,6 @@ import React, { useCallback, useState } from "react";
 import CustomDialogHeader from "../../../../components/workflows/CustomDialogHeader";
 import { Layers2Icon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   createWorkfloeSchemaType,
   createWorkflowSchema,
@@ -39,7 +38,7 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
     mutationFn: CreateWorkflow,
     onSuccess: () => {
       toast.success("Workflow created successfully!", {
-        id: "create-workflow",
+        id: "create-workflow-create",
       });
     },
     onError: () => {
@@ -55,9 +54,15 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
     [mutate]
   );
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        form.reset();
+        setOpen(open);
+      }}
+    >
       <DialogTrigger asChild>
-        <Button>{triggerText ?? "Create workflow"}</Button> 
+        <Button>{triggerText ?? "Create workflow"}</Button>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader
@@ -110,7 +115,11 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
                   </FormItem>
                 )}
               />
-              <Button disabled={isPending} type="submit" className="w-full mt-4">
+              <Button
+                disabled={isPending}
+                type="submit"
+                className="w-full mt-4"
+              >
                 {isPending ? <Loader2 className="animate-spin" /> : "Proceed"}
               </Button>
             </form>

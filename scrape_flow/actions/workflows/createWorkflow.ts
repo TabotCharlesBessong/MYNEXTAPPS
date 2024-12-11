@@ -19,8 +19,8 @@ export const CreateWorkflow = async (form:createWorkfloeSchemaType) => {
   const result = await prisma.workflow.create({
     data:{
       userId:user.id,
-      definition: WorkflowStatus.DRAFT,
-      status:"DRAFT",
+      definition: "TODO",
+      status:WorkflowStatus.DRAFT,
       ...data
     }
   })
