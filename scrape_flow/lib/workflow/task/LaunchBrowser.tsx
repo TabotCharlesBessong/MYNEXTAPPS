@@ -1,6 +1,6 @@
 "use client"
 
-import { TaskType } from '@/types/task'
+import { TaskParamTypes, TaskType } from '@/types/task'
 import { GlobeIcon, LucideProps } from 'lucide-react'
 import React from 'react'
 
@@ -10,7 +10,16 @@ export const LaunchBrowserTask = {
   icon:(props:LucideProps) => (
     <GlobeIcon className='stroke-pink-400' {...props} />
   ),
-  isEnteryPoint:true
+  isEnteryPoint:true,
+  inputs:[
+    {
+      name:"Website Url",
+      types:TaskParamTypes.STRING,
+      helperText:"e.g https://www.google.com",
+      required:true,
+      hideHandle:true
+    }
+  ]
 }
 
 const LaunchBrowser = () => {
