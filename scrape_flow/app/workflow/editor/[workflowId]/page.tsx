@@ -8,7 +8,7 @@ const page = async ({params}:{params:{workflowId:string}}) => {
   const {workflowId} = params
   const user = await currentUser()
   if(!user) return <div>unauthorized</div>
-  await waitFor(1000)
+  // await waitFor(1000)
   const workflow = await prisma.workflow.findUnique({
     where:{
       id:workflowId,
