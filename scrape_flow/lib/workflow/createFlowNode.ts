@@ -8,6 +8,8 @@ export const CreateFlowNode = (
 ):AppNode => {
   return {
     id:crypto.randomUUID(),
+    type:"FlowScrapeNode",
+    dragHandle:".drag-handle",
     data:{
       type:nodeType,
       inputs:{}
