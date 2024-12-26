@@ -25,8 +25,8 @@ const DeletableEdge = (props: EdgeProps) => {
           <div
             className=""
             style={{
-              position: "absolute",
-              transform: `translate(-50%,-50%) translate(${labelX},${labelY})`,
+              position: "relative",
+              // transform: `translate(-50%,-50%) translate(${labelX},${labelY})`,
               pointerEvents: "all",
             }}
           >
