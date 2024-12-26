@@ -8,6 +8,7 @@ import NodeInputs from "./NodeInputs";
 import NodeInput from "./NodeInput";
 import NodeOutputs from "./NodeOutputs";
 import NodeOutput from "./NodeOutput";
+import { TaskParamTypes } from "@/types/task";
 
 const NodeComponent = memo((props: NodeProps) => {
   const nodeData = props.data as AppNodeData;
@@ -21,8 +22,8 @@ const NodeComponent = memo((props: NodeProps) => {
         ))}
       </NodeInputs>
       <NodeOutputs>
-        {task.inputs.map((output) => (
-          <NodeOutput key={output.name} output={{...output,type:output.types}} nodeId={props.id} />
+        {task.outputs.map((output) => (
+          <NodeOutput key={output.name} output={{...output,type:output.name as TaskParamTypes}} nodeId={props.id} />
         ))}
       </NodeOutputs>
     </NodeCard>

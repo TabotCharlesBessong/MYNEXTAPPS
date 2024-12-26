@@ -80,10 +80,10 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         snapToGrid={true}
         snapGrid={snapGrid}
         fitView
