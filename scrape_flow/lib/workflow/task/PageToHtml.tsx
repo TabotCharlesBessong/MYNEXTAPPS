@@ -1,6 +1,7 @@
 "use client"
 
 import { TaskParamTypes, TaskType } from '@/types/task'
+import { WorkflowTask } from '@/types/workflow'
 import { CodeIcon, LucideProps } from 'lucide-react'
 import React from 'react'
 
@@ -11,17 +12,18 @@ export const PageToHtmlTask = {
     <CodeIcon className='stroke-rose-400' {...props} />
   ),
   isEntryPoint:false,
+  credits:3,
   inputs:[
     {
       name:"Web Page",
-      types:TaskParamTypes.STRING,
+      type:TaskParamTypes.STRING,
       required:true,
     }
   ],
   outputs:[
     {
       name:"HTML",
-      types:TaskParamTypes.STRING,
+      type:TaskParamTypes.STRING,
       description:"The HTML content of the page",
     },
     {
@@ -29,7 +31,7 @@ export const PageToHtmlTask = {
       type:TaskParamTypes.BROWSER_INSTANCE
     }
   ]
-}
+} satisfies WorkflowTask
 
 const PageToHtml = () => {
   return (
