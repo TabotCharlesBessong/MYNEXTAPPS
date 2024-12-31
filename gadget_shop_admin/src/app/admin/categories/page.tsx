@@ -1,14 +1,8 @@
-"use client"
+import { getCategoriesWithProducts } from "@/actions/categories";
+import CategoryPageComponent from "@/app/admin/categories/page-component";
 
-import { getCategoriesWithProducts } from '@/actions/categories'
-import React from 'react'
+export default async function Categories() {
+  const categories = await getCategoriesWithProducts();
 
-const page = async () => {
-  // fetch categories
-  const categories = await getCategoriesWithProducts()
-  return (
-    <div>Category</div>
-  )
+  return <CategoryPageComponent categories={categories} />;
 }
-
-export default page
