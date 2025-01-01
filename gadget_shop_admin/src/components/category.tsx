@@ -117,7 +117,7 @@ export const CategoryTableRow = ({
         </TableCell>
         <TableCell>
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
               <Button size="icon" variant="ghost">
                 <MoreHorizontal className="h-4 w-4" />
                 <span className="sr-only">Open menu</span>

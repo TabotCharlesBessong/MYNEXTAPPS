@@ -1,18 +1,17 @@
 "use client";
 
-import { FC, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { PlusCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusCircle } from "lucide-react";
+import { FC, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
 
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import {
   Dialog,
@@ -29,18 +28,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { CategoryTableRow } from "@/components/category";
-import {
-  createCategorySchema,
-  CreateCategorySchema,
-} from "@/app/admin/categories/create-category.schema";
-import { CategoriesWithProductsResponse } from "@/app/admin/categories/categories.types";
 import {
   createCategory,
   deleteCategory,
   imageUploadHandler,
   updateCategory,
 } from "@/actions/categories";
+import { CategoriesWithProductsResponse } from "@/app/admin/categories/categories.types";
+import {
+  createCategorySchema,
+  CreateCategorySchema,
+} from "@/app/admin/categories/create-category.schema";
+import { CategoryTableRow } from "@/components/category";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { CategoryForm } from "./category-form";

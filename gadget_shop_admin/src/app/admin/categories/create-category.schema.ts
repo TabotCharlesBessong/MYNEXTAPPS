@@ -22,12 +22,19 @@ export const createCategorySchemaServer = z.object({
     .min(2, { message: "Name must be at least 2 characters long" }),
 });
 
+export const updateCategorySchemaServer = z.object({
+  imageUrl: z.string().optional(),
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long" }),
+});
+
 export type CreateCategorySchemaServer = z.infer<
-  typeof createCategorySchemaServer
+  typeof updateCategorySchemaServer
 >;
 
 export const updateCategorySchema = z.object({
-  imageUrl: z.string().min(1, { message: "Image is required" }),
+  imageUrl: z.string().min(1, { message: "Image is required" }).optional(),
   name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters long" }),
