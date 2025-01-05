@@ -2,8 +2,11 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { RenderMounted } from "@/components/render-mounted";
 import { createClient } from "@/supabase/client";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import React, { ReactNode } from "react";
+
+// revalidatePath("/","layout")
 
 const AdminLayout = async ({ children }: Readonly<{ children: ReactNode }>) => {
   // check if user is authenticated
