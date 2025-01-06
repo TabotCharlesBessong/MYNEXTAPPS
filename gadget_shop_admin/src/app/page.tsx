@@ -247,7 +247,7 @@ export default function Home() {
 
       <footer className="bg-[#1BC464] text-white">
         <Link
-          href={`https://www.youtube.com/@codewithlari`}
+          href={`https://github.com/TabotCharlesBessong`}
           target="_blank"
           className="container mx-auto px-4 text-center"
         >
