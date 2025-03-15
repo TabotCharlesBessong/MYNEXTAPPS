@@ -31,11 +31,11 @@ const NodeHeader = ({
           {task.label}
         </p>
         <div className="flex gap-1 items-center">
-          {task.isEnteryPoint && <Badge>Entry point</Badge>}
+          {task.isEntryPoint && <Badge>Entry point</Badge>}
           <Badge className="gap-2 flex items-center text-xs">
-            <CoinsIcon size={16} /> TODO
+            <CoinsIcon size={16} /> {task.credits}
           </Badge>
-          {!task.isEnteryPoint && (
+          {!task.isEntryPoint && (
             <>
               <Button
                 onClick={() => {
