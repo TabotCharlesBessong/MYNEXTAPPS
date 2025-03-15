@@ -7,7 +7,7 @@ import CreateWorkflowDialog from "@/app/(dashboard)/workflows/_component/CreateW
 import WorkflowCard from "../../app/(dashboard)/workflows/_component/WorkflowCard";
 
 const UserWorkflows = async () => {
-  await waitFor(3000);
+  // await waitFor(3000);
   const workflows = await getWorkflowsForUsers();
   if (!workflows) {
     return (
