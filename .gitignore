@@ -1,3 +1,5 @@
+*/node_modules
+*.env
 /scrape_flow/node_modules
 *.next
 *.env
