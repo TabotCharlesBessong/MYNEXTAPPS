@@ -9,16 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@prisma/client": "^6.5.0",
+    "@radix-ui/react-slot": "^1.1.2",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "csv": "^6.3.11",
     "lucide-react": "^0.482.0",
     "next": "15.2.2",
     "prisma": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "slugify": "^1.6.6",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
+    "unlazy": "^0.12.3",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -26,6 +34,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node -r tsconfig-paths/register --compiler-options {\"module\":\"CommonJS\"} prisma/seed/seed.ts"
   }
 }
