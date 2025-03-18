@@ -17,12 +17,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HTMLParser } from "../shared/html-parser";
 import { Button } from "../ui/button";
-import { ImgixImage } from "../ui/imgix-image";
+// import { ImgixImage } from "../ui/imgix-image";
 import { FavouriteButton } from "./favourite-button";
+import Image from "next/image";
 
 interface ClassifiedCardProps {
   classified: ClassifiedWithImages;
-  favourites: number[];
+  favourites?: number[];
 }
 
 const getKeyClassifiedInfo = (classified: ClassifiedWithImages) => {
@@ -59,7 +60,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
 
   const pathname = usePathname();
   const [isFavourite, setIsFavourite] = useState(
-    favourites.includes(classified.id)
+    favourites?.includes(classified.id)
   );
   const [isVisible, setIsVisible] = useState(true);
 
@@ -78,19 +79,20 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
         >
           <div className="aspect-3/2 relative">
             <Link href={routes.singleClassified(classified.slug)}>
-              <ImgixImage
-                placeholder="blur"
-                blurDataURL={classified.images[0]?.blurhash}
+              <Image
                 src={classified.images[0]?.src}
-                alt={classified.images[0]?.alt}
-                className="object-cover rounded-t-md"
-                fill={true}
-                quality={25}
+                alt={classified.images[0]?.alt || "Car Image"}
+                layout="fill" // Ensures the image takes up full container space
+                objectFit="cover" // Ensures correct cropping
+                className="rounded-t-md"
+                placeholder="blur"
+                blurDataURL={classified.images[0]?.blurhash} // Optional for smoother loading
+                quality={50} // Adjust image quality for performance
               />
             </Link>
             <FavouriteButton
               setIsFavourite={setIsFavourite}
-              isFavourite={isFavourite}
+              isFavourite={isFavourite!}
               id={classified.id}
             />
             <div className="absolute top-2.5 right-3.5 bg-primary text-slate-50 font-bold px-2 py-1 rounded">

@@ -2,6 +2,7 @@
 
 import { routes } from "@/config/routes";
 import type { SidebarProps } from "@/config/types";
+// @ts-ignore
 import { env } from "@/env";
 import {
   cn,
@@ -25,7 +26,14 @@ import { useRouter } from "next/navigation";
 import { parseAsString, useQueryStates } from "nuqs";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { SearchInput } from "../shared/search-input";
-import { Select } from "../ui/select"; // Make sure this points to your new Select component
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Label } from "../ui/label";
 import { RangeFilter } from "./range-filters";
 import { TaxonomyFilters } from "./taxonomy-filters";
 
@@ -92,6 +100,69 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
     router.refresh();
   };
 
+  // Create a wrapper function to handle the Select component's value change
+  const handleSelectChange = (name: string) => (value: string) => {
+    // Create a synthetic event that matches the expected ChangeEvent<HTMLSelectElement> structure
+    const syntheticEvent = {
+      // @ts-ignore
+      target: {
+        name,
+        value,
+        nodeName: "SELECT",
+        type: "change",
+        checked: false,
+        selectedOptions: [{ value, text: value }],
+        getAttribute: (attr: string) => (attr === "name" ? name : null),
+      } as HTMLSelectElement,
+      currentTarget: {} as HTMLSelectElement,
+      bubbles: true,
+      cancelable: true,
+      defaultPrevented: false,
+      eventPhase: 0,
+      isTrusted: true,
+      preventDefault: () => {},
+      isDefaultPrevented: () => false,
+      stopPropagation: () => {},
+      isPropagationStopped: () => false,
+      persist: () => {},
+      timeStamp: Date.now(),
+      type: "change",
+    };
+
+    // Call the original handleChange with our synthetic event
+    handleChange(syntheticEvent as React.ChangeEvent<HTMLSelectElement>);
+  };
+
+  // Helper function to create a Select component
+  const renderSelect = (
+    label: string,
+    name: string,
+    value: string,
+    options: Array<{ label: string; value: string }>,
+    disabled: boolean = false
+  ) => (
+    <div className="space-y-2">
+      <Label htmlFor={name}>{label}</Label>
+      <Select
+        value={value}
+        onValueChange={handleSelectChange(name)}
+        disabled={disabled}
+      >
+        <SelectTrigger id={name} className="w-full">
+          <SelectValue placeholder={`Select ${label.toLowerCase()}`} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="">All</SelectItem>
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+
   return (
     <div className="py-4 w-[21.25rem] bg-white border-r border-muted hidden lg:block">
       <div>
@@ -119,7 +190,7 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
           className="w-full px-3 py-2 border rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="p-4 space-y-2">
+      <div className="p-4 space-y-4">
         <TaxonomyFilters
           searchParams={searchParams}
           handleChange={handleChange}
@@ -159,97 +230,96 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
           increment={5000}
           thousandSeparator
         />
-        <Select
-          label="Currency"
-          name="currency"
-          value={queryStates.currency || ""}
-          onChange={handleChange}
-          options={Object.values(CurrencyCode).map((value) => ({
+
+        {renderSelect(
+          "Currency",
+          "currency",
+          queryStates.currency || "",
+          Object.values(CurrencyCode).map((value) => ({
             label: value,
             value,
-          }))}
-        />
-        <Select
-          label="Odometer Unit"
-          name="odoUnit"
-          value={queryStates.odoUnit || ""}
-          onChange={handleChange}
-          options={Object.values(OdoUnit).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Odometer Unit",
+          "odoUnit",
+          queryStates.odoUnit || "",
+          Object.values(OdoUnit).map((value) => ({
             label: formatOdometerUnit(value),
             value,
-          }))}
-        />
-        <Select
-          label="Transmission"
-          name="transmission"
-          value={queryStates.transmission || ""}
-          onChange={handleChange}
-          options={Object.values(Transmission).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Transmission",
+          "transmission",
+          queryStates.transmission || "",
+          Object.values(Transmission).map((value) => ({
             label: formatTransmission(value),
             value,
-          }))}
-        />
-        <Select
-          label="Fuel Type"
-          name="fuelType"
-          value={queryStates.fuelType || ""}
-          onChange={handleChange}
-          options={Object.values(FuelType).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Fuel Type",
+          "fuelType",
+          queryStates.fuelType || "",
+          Object.values(FuelType).map((value) => ({
             label: formatFuelType(value),
             value,
-          }))}
-        />
-        <Select
-          label="Body Type"
-          name="bodyType"
-          value={queryStates.bodyType || ""}
-          onChange={handleChange}
-          options={Object.values(BodyType).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Body Type",
+          "bodyType",
+          queryStates.bodyType || "",
+          Object.values(BodyType).map((value) => ({
             label: formatBodyType(value),
             value,
-          }))}
-        />
-        <Select
-          label="Colour"
-          name="colour"
-          value={queryStates.colour || ""}
-          onChange={handleChange}
-          options={Object.values(Colour).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Colour",
+          "colour",
+          queryStates.colour || "",
+          Object.values(Colour).map((value) => ({
             label: formatColour(value),
             value,
-          }))}
-        />
-        <Select
-          label="ULEZ Compliance"
-          name="ulezCompliance"
-          value={queryStates.ulezCompliance || ""}
-          onChange={handleChange}
-          options={Object.values(ULEZCompliance).map((value) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "ULEZ Compliance",
+          "ulezCompliance",
+          queryStates.ulezCompliance || "",
+          Object.values(ULEZCompliance).map((value) => ({
             label: formatUlezCompliance(value),
             value,
-          }))}
-        />
+          }))
+        )}
 
-        <Select
-          label="Doors" // Fixed: Added the label that was commented out
-          name="doors"
-          value={queryStates.doors || ""}
-          onChange={handleChange}
-          options={Array.from({ length: 6 }).map((_, i) => ({
+        {renderSelect(
+          "Doors",
+          "doors",
+          queryStates.doors || "",
+          Array.from({ length: 6 }).map((_, i) => ({
             label: Number(i + 1).toString(),
             value: Number(i + 1).toString(),
-          }))}
-        />
-        <Select
-          label="Seats"
-          name="seats"
-          value={queryStates.seats || ""}
-          onChange={handleChange}
-          options={Array.from({ length: 8 }).map((_, i) => ({
+          }))
+        )}
+
+        {renderSelect(
+          "Seats",
+          "seats",
+          queryStates.seats || "",
+          Array.from({ length: 8 }).map((_, i) => ({
             label: Number(i + 1).toString(),
             value: Number(i + 1).toString(),
-          }))}
-        />
+          }))
+        )}
       </div>
     </div>
   );

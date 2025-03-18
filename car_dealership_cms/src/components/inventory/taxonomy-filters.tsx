@@ -4,7 +4,14 @@ import { endpoints } from "@/config/endpoints";
 import type { FilterOptions, TaxonomyFiltersProps } from "@/config/types";
 import { api } from "@/lib/api-client";
 import { useEffect, useState } from "react";
-import { Select } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Label } from "../ui/label";
 
 export const TaxonomyFilters = (props: TaxonomyFiltersProps) => {
   const { searchParams, handleChange } = props;
@@ -40,31 +47,101 @@ export const TaxonomyFilters = (props: TaxonomyFiltersProps) => {
     })();
   }, [searchParams]);
 
+  // Create a wrapper function to handle the Select component's value change
+  const handleSelectChange = (name: string) => (value: string) => {
+    // Create a synthetic event that matches the expected ChangeEvent<HTMLSelectElement> structure
+    const syntheticEvent = {
+      // @ts-ignore
+      target: {
+        name,
+        value,
+        nodeName: "SELECT",
+        type: "change",
+        checked: false,
+        selectedOptions: [{ value, text: value }],
+        getAttribute: (attr: string) => (attr === "name" ? name : null),
+        // Add other properties as needed
+      } as HTMLSelectElement,
+      currentTarget: {} as HTMLSelectElement,
+      bubbles: true,
+      cancelable: true,
+      defaultPrevented: false,
+      eventPhase: 0,
+      isTrusted: true,
+      preventDefault: () => {},
+      isDefaultPrevented: () => false,
+      stopPropagation: () => {},
+      isPropagationStopped: () => false,
+      persist: () => {},
+      timeStamp: Date.now(),
+      type: "change",
+    };
+
+    handleChange(syntheticEvent as React.ChangeEvent<HTMLSelectElement>);
+  };
+
   return (
     <>
-      <Select
-        label="Make"
-        name="make"
-        value={searchParams?.make as string}
-        onChange={handleChange}
-        options={makes}
-      />
-      <Select
-        label="Model"
-        name="model"
-        value={searchParams?.model as string}
-        options={models}
-        onChange={handleChange}
-        disabled={!models.length}
-      />
-      <Select
-        label="Model Variant"
-        name="modelVariant"
-        value={searchParams?.modelVariant as string}
-        options={modelVariants}
-        onChange={handleChange}
-        disabled={!modelVariants.length}
-      />
+      <div className="grid gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="make">Make</Label>
+          <Select
+            value={searchParams?.make as string}
+            onValueChange={handleSelectChange("make")}
+          >
+            <SelectTrigger id="make">
+              <SelectValue placeholder="Select a make" />
+            </SelectTrigger>
+            <SelectContent>
+              {makes.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="model">Model</Label>
+          <Select
+            value={searchParams?.model as string}
+            onValueChange={handleSelectChange("model")}
+            disabled={!models.length}
+          >
+            <SelectTrigger id="model">
+              <SelectValue placeholder="Select a model" />
+            </SelectTrigger>
+            <SelectContent>
+              {models.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="modelVariant">Model Variant</Label>
+          <Select
+            value={searchParams?.modelVariant as string}
+            onValueChange={handleSelectChange("modelVariant")}
+            disabled={!modelVariants.length}
+          >
+            <SelectTrigger id="modelVariant">
+              <SelectValue placeholder="Select a variant" />
+            </SelectTrigger>
+            <SelectContent>
+              {modelVariants.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,4 +1,6 @@
 import { PageSchema } from "@/app/schemas/page.schema";
+import { ClassifiedCard } from "@/components/inventory/classified-card";
+import { ClassifiedsList } from "@/components/inventory/classifieds-list";
 import { CLASSIFIEDS_PER_PAGE } from "@/config/constants";
 import { AwaitedPageProps, PageProps } from "@/config/types";
 import { prisma } from "@/lib/prisma";
@@ -27,8 +29,8 @@ export default async function InventoryPage(props:PageProps) {
   const count = await prisma.classified.count()
   
   return (
-    <>
-      <h1>Inventory Page {count}</h1>
-    </>
+    <div className="grid grid-cols-1">
+      <ClassifiedsList classifieds={await classifieds} />
+    </div>
   )
 }
