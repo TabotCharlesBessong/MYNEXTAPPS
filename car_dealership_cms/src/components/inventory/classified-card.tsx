@@ -17,13 +17,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HTMLParser } from "../shared/html-parser";
 import { Button } from "../ui/button";
-// import { ImgixImage } from "../ui/imgix-image";
 import { FavouriteButton } from "./favourite-button";
 import Image from "next/image";
 
 interface ClassifiedCardProps {
   classified: ClassifiedWithImages;
-  favourites?: number[];
+  favourites: number[];
 }
 
 const getKeyClassifiedInfo = (classified: ClassifiedWithImages) => {
@@ -60,8 +59,9 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
 
   const pathname = usePathname();
   const [isFavourite, setIsFavourite] = useState(
-    favourites?.includes(classified.id)
+    Array.isArray(favourites) && favourites.includes(classified.id)
   );
+
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {

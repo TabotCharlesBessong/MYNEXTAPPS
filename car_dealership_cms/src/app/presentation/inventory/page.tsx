@@ -2,8 +2,10 @@ import { PageSchema } from "@/app/schemas/page.schema";
 import { ClassifiedCard } from "@/components/inventory/classified-card";
 import { ClassifiedsList } from "@/components/inventory/classifieds-list";
 import { CLASSIFIEDS_PER_PAGE } from "@/config/constants";
-import { AwaitedPageProps, PageProps } from "@/config/types";
+import { AwaitedPageProps, Favourites, PageProps } from "@/config/types";
 import { prisma } from "@/lib/prisma";
+import { redis } from "@/lib/redis-store";
+import { getSourceId } from "@/lib/source-id";
 import { buildClassifiedFilterQuery } from "@/lib/utils";
 
 const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
@@ -25,12 +27,17 @@ const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
 export default async function InventoryPage(props:PageProps) {
   const searchParams = await props.searchParams
   const classifieds = await getInventory(searchParams);
+  const sourceId = await getSourceId()
+  const favourites = (await redis.get<Favourites>(sourceId ?? "")) ?? [];
+  const favouriteIds: number[] = Array.isArray(favourites) ? favourites : [];
+
+
   // console.log(classifieds);
-  const count = await prisma.classified.count()
+  // const count = await prisma.classified.count()
   
   return (
     <div className="grid grid-cols-1">
-      <ClassifiedsList classifieds={await classifieds} />
+      <ClassifiedsList classifieds={classifieds} favourites={favouriteIds} />
     </div>
-  )
+  );
 }
