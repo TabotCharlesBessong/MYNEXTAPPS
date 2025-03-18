@@ -1,18 +1,17 @@
-// auth.ts
+// src/app/auth.ts
 import NextAuth from "next-auth";
-import { config } from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
+import { authConfig } from "./auth.config";
 
-// Add this explicitly to ensure the adapter is properly initialized
+// Create adapter first
 const adapter = PrismaAdapter(prisma);
 
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
-  ...config,
+// Initialize NextAuth with the adapter and config
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter,
 });
+
+// Explicitly export GET and POST handlers
+export const { GET, POST } = handlers;

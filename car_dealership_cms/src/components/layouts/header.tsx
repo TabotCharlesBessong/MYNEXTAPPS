@@ -9,10 +9,10 @@ import Link from "next/link";
 import { SignOutForm } from "../auth/sign-out-form";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { auth } from "../../app/auth";
+// import { auth } from "../../app/auth";
 
 export const PublicHeader = async () => {
-  const session = await auth();
+  // const session = await auth();
   const sourceId = await getSourceId();
   const favourites = await redis.get<Favourites>(sourceId ?? "");
   return (
@@ -39,7 +39,7 @@ export const PublicHeader = async () => {
           </Link>
         ))}
       </nav>
-      {session ? (
+      {/* {session ? (
         <div className="items-center md:flex gap-x-6 hidden">
           <Link href={routes.admin.dashboard} className="text-foreground">
             Backoffice
@@ -64,7 +64,7 @@ export const PublicHeader = async () => {
             </div>
           </Link>
         </Button>
-      )}
+      )} */}
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="link" size="icon" className="md:hidden border-none">

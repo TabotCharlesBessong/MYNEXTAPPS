@@ -1,4 +1,4 @@
-// auth.config.ts
+// src/app/auth.config.ts
 import { SignInSchema } from "@/app/schemas/auth.schema";
 import { SESSION_MAX_AGE } from "@/config/constants";
 import { routes } from "@/config/routes";
@@ -6,23 +6,34 @@ import { bcryptPasswordCompare } from "@/lib/bcrypt";
 import { issueChallenge } from "@/lib/otp";
 import { prisma } from "@/lib/prisma";
 import type { AdapterUser } from "@auth/core/adapters";
-import CredentialsProvider from "@auth/core/providers/credentials";
-import ResendProvider from "@auth/core/providers/resend";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import type { NextAuthConfig, User } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+// Remove Resend provider if it's not available in your next-auth version
+// import ResendProvider from "next-auth/providers/resend";
+import { DefaultSession, DefaultUser } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import type { NextAuthOptions } from "next-auth";
 
 // Define custom user type to include requires2FA
-interface CustomUser extends User {
+interface CustomUser extends DefaultUser {
   requires2FA?: boolean;
 }
 
-export const config = {
-  adapter: PrismaAdapter(prisma),
+// Extend the session type to include custom fields
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      email: string;
+    } & DefaultSession["user"];
+  }
+}
+
+// Export the configuration object with proper typing
+export const authConfig: NextAuthOptions = {
   useSecureCookies: false,
-  trustHost: true,
+  // trustHost: true,
   session: {
-    strategy: "database",
+    strategy: "database" as const, // Use const assertion to fix the string type issue
     maxAge: SESSION_MAX_AGE / 1000,
   },
   providers: [
@@ -37,7 +48,7 @@ export const config = {
           type: "password",
         },
       },
-      authorize: async (credentials): Promise<CustomUser | null> => {
+      async authorize(credentials) {
         try {
           const validatedFields = SignInSchema.safeParse(credentials);
 
@@ -61,18 +72,18 @@ export const config = {
 
           const dbUser = await prisma.user.findUnique({
             where: { id: user.id },
-            select: { id: true, email: true }, // Explicitly select fields instead of omit
+            select: { id: true, email: true },
           });
 
-          // @ts-ignore
-          return { ...dbUser, requires2FA: true };
+          return { ...dbUser, requires2FA: true } as CustomUser;
         } catch (error) {
           console.log({ error });
           return null;
         }
       },
     }),
-    ResendProvider({}),
+    // Only include ResendProvider if it's available in your version
+    // ResendProvider({}),
   ],
   pages: {
     signIn: routes.signIn,
@@ -80,7 +91,7 @@ export const config = {
     error: "/auth/error",
   },
   callbacks: {
-    async jwt({ user, token }: { user?: CustomUser; token: JWT }) {
+    async jwt({ user, token }) {
       if (!user) return token;
 
       const session = await prisma.session.create({
@@ -88,13 +99,13 @@ export const config = {
           expires: new Date(Date.now() + SESSION_MAX_AGE),
           sessionToken: crypto.randomUUID(),
           userId: user.id as string,
-          requires2FA: user.requires2FA || false,
+          requires2FA: (user as CustomUser).requires2FA || false,
         },
       });
 
       if (!session) return token;
 
-      if (user) token.requires2FA = user.requires2FA;
+      if (user) token.requires2FA = (user as CustomUser).requires2FA;
 
       token.id = session.sessionToken;
       token.exp = session.expires.getTime();
@@ -102,7 +113,7 @@ export const config = {
       return token;
     },
 
-    async session({ session, user }: { session: any; user: AdapterUser }) {
+    async session({ session, user }) {
       session.user = {
         id: user.id,
         email: user.email,
@@ -111,6 +122,6 @@ export const config = {
     },
   },
   jwt: {
-    encode: async ({ token }: { token?: JWT }) => token?.id as string,
+    encode: async ({ token }) => token?.id as string,
   },
-} satisfies NextAuthConfig;
+};

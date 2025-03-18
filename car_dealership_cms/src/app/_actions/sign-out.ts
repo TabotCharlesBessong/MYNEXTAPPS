@@ -1,4 +1,4 @@
-// _actions/sign-out.ts
+// src/app/_actions/sign-out.ts
 "use server";
 import { routes } from "@/config/routes";
 import { prisma } from "@/lib/prisma";
