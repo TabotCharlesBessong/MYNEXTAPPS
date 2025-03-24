@@ -1,4 +1,5 @@
 import type { ClassifiedAI } from "@/app/schemas/classified-ai.schema";
+import { ImgixImage } from "@/components/ui/imgix-image";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   formatBodyType,
@@ -51,7 +52,7 @@ export const StreamableSkeleton = (props: StreamableSkeletonProps) => {
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2 relative">
           {image ? (
-            <Image
+            <ImgixImage
               src={image}
               alt={title || "Vehicle Image"}
               width={600}
@@ -65,7 +66,7 @@ export const StreamableSkeleton = (props: StreamableSkeletonProps) => {
         <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
           <div className="flex flex-col md:flex-row items-start md:items-center">
             {make ? (
-              <Image
+              <ImgixImage
                 src={make.image}
                 alt={make.name}
                 width={80}

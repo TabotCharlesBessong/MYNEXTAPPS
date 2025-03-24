@@ -27,6 +27,7 @@ import Link from "next/link";
 import { HTMLParser } from "../shared/html-parser";
 import { Button } from "../ui/button";
 import { ClassifiedCarousel } from "./classified-carousel";
+import { ImgixImage } from "../ui/imgix-image";
 
 type ClassifiedWithImagesAndMake = Prisma.ClassifiedGetPayload<{
   include: { make: true; images: true };
@@ -91,7 +92,7 @@ export const ClassifiedView = (props: ClassifiedWithImagesAndMake) => {
         </div>
         <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <Image
+            <ImgixImage
               src={props.make.image}
               alt={props.make.name}
               className="w-20 mr-4"

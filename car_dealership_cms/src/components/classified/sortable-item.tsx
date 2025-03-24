@@ -6,6 +6,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { CheckCircle, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { ImgixImage } from "../ui/imgix-image";
 // import { ImgixImage } from "../ui/imgix-image";
 
 interface SortableItemProps {
@@ -54,7 +55,7 @@ export const SortableItem = (props: SortableItemProps) => {
         <div className="relative overflow-hidden rounded-lg">
           {item.done ? (
             <div className="h-full rounded-lg">
-              <Image
+              <ImgixImage
                 alt={item.alt}
                 src={item.src}
                 width={240}

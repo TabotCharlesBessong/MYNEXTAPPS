@@ -15,6 +15,7 @@ import { SwiperButtons } from "../shared/swiper-button";
 // import { ImgixImage } from "../ui/imgix-image";
 import { CarouselSkeleton } from "./carousel-skeleton";
 import Image from "next/image";
+import { ImgixImage } from "../ui/imgix-image";
 
 interface ClassifiedCarouselProps {
   images: PrismaImage[];
@@ -89,7 +90,7 @@ export const ClassifiedCarousel = ({ images }: ClassifiedCarouselProps) => {
         >
           {images.map((image, index) => (
             <SwiperSlide key={image.id} virtualIndex={index}>
-              <Image
+              <ImgixImage
                 blurDataURL={image.blurhash}
                 placeholder="blur"
                 src={image.src}
@@ -121,7 +122,7 @@ export const ClassifiedCarousel = ({ images }: ClassifiedCarouselProps) => {
             className="relative mt-2 h-fit w-full cursor-grab"
             key={image.id}
           >
-            <Image
+            <ImgixImage
               className="object-cover aspect-3/2 rounded-md"
               width={150}
               height={100}

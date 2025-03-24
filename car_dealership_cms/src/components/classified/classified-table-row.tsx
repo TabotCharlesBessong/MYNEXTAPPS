@@ -6,13 +6,14 @@ import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { TableCell, TableRow } from "../ui/table";
 import { ActionButtons } from "./action-buttons";
+import { ImgixImage } from "../ui/imgix-image";
 
 export const ClassifiedsTableRow = (classified: ClassifiedWithImages) => {
   return (
     <TableRow className="text-muted/75 border-white/5 hover:bg-primary-300">
       <TableCell className="font-medium">{classified.id}</TableCell>
       <TableCell className="p-0">
-        <Image
+        <ImgixImage
           src={classified.images[0].src}
           alt={classified.images[0].alt}
           width={120}
