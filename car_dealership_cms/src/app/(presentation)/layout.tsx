@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Mulish, Roboto } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from "nextjs-toploader";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
