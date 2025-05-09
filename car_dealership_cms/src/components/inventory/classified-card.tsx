@@ -19,6 +19,7 @@ import { HTMLParser } from "../shared/html-parser";
 import { Button } from "../ui/button";
 import { FavouriteButton } from "./favourite-button";
 import Image from "next/image";
+import { ImgixImage } from "../ui/imgix-image";
 
 interface ClassifiedCardProps {
   classified: ClassifiedWithImages;
@@ -79,7 +80,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
         >
           <div className="aspect-3/2 relative">
             <Link href={routes.singleClassified(classified.slug)}>
-              <Image
+              <ImgixImage
                 src={classified.images[0]?.src}
                 alt={classified.images[0]?.alt || "Car Image"}
                 layout="fill" // Ensures the image takes up full container space
