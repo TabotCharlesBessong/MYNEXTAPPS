@@ -17,13 +17,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HTMLParser } from "../shared/html-parser";
 import { Button } from "../ui/button";
-// import { ImgixImage } from "../ui/imgix-image";
 import { FavouriteButton } from "./favourite-button";
 import Image from "next/image";
+import { ImgixImage } from "../ui/imgix-image";
 
 interface ClassifiedCardProps {
   classified: ClassifiedWithImages;
-  favourites?: number[];
+  favourites: number[];
 }
 
 const getKeyClassifiedInfo = (classified: ClassifiedWithImages) => {
@@ -60,8 +60,9 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
 
   const pathname = usePathname();
   const [isFavourite, setIsFavourite] = useState(
-    favourites?.includes(classified.id)
+    Array.isArray(favourites) && favourites.includes(classified.id)
   );
+
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
         >
           <div className="aspect-3/2 relative">
             <Link href={routes.singleClassified(classified.slug)}>
-              <Image
+              <ImgixImage
                 src={classified.images[0]?.src}
                 alt={classified.images[0]?.alt || "Car Image"}
                 layout="fill" // Ensures the image takes up full container space

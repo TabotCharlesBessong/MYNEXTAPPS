@@ -36,7 +36,7 @@ import { ClassifiedCard } from "./classified-card";
 
 interface ClassifiedsListProps {
   classifieds: ClassifiedWithImages[]; // ✅ Already resolved data
-  favourites?: number[];
+  favourites: number[];
 }
 
 export const ClassifiedsList = ({

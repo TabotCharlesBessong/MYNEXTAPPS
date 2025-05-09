@@ -1,4 +1,3 @@
-import { VariantProps } from "class-variance-authority";
 import { badgeVariants } from "@/components/ui/badge"; // ✅ Correct import
 import { ClassifiedStatus, CustomerStatus } from "@prisma/client";
 import { routes } from "./routes";
