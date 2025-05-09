@@ -1,0 +1,236 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  hashedPassword String    @map("hashed_password")
+  sessions       Session[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  requires2FA  Boolean  @default(true)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Classified {
+  id             Int              @id @default(autoincrement())
+  views          Int              @default(0)
+  slug           String           @unique
+  vrm            String?
+  title          String?
+  description    String?
+  year           Int
+  odoReading     Int              @default(0) @map("odo_reading")
+  doors          Int              @default(2)
+  seats          Int              @default(5)
+  price          Int              @default(0) @map("price")
+  makeId         Int              @map("make_id")
+  make           Make             @relation(fields: [makeId], references: [id])
+  modelId        Int              @map("model_id")
+  model          Model            @relation(fields: [modelId], references: [id])
+  modelVariantId Int?             @map("model_variant_id")
+  modelVariant   ModelVariant?    @relation(fields: [modelVariantId], references: [id])
+  ulezCompliance ULEZCompliance   @default(EXEMPT)
+  transmission   Transmission     @default(MANUAL)
+  colour         Colour           @default(BLACK)
+  fuelType       FuelType         @default(PETROL)
+  bodyType       BodyType         @default(SEDAN)
+  odoUnit        OdoUnit          @default(MILES)
+  currency       CurrencyCode     @default(GBP)
+  status         ClassifiedStatus @default(DRAFT)
+  images         Image[]
+  customers      Customer[]
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  @@index([makeId, modelId], name: "index_make_model")
+  @@index([status], name: "index_status")
+  @@index([price], name: "index_price")
+  @@map("classifieds")
+}
+
+model Customer {
+  id            Int                 @id @default(autoincrement())
+  firstName     String              @map("first_name")
+  lastName      String              @map("last_name")
+  email         String
+  mobile        String?
+  bookingDate   DateTime?           @map("booking_date")
+  termsAccepted Boolean             @default(false) @map("terms_accepted")
+  status        CustomerStatus      @default(INTERESTED)
+  classifiedId  Int?                @map("classified_id")
+  classified    Classified?         @relation(fields: [classifiedId], references: [id], onDelete: Cascade)
+  createdAt     DateTime            @default(now()) @map("created_at")
+  updatedAt     DateTime            @updatedAt @map("updated_at")
+  lifecycle     CustomerLifecycle[]
+
+  @@map("customers")
+}
+
+model CustomerLifecycle {
+  id         Int            @id @default(autoincrement())
+  customerId Int            @map("customer_id")
+  customer   Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  oldStatus  CustomerStatus @map("old_status")
+  newStatus  CustomerStatus @map("new_status")
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
+
+  @@map("customer_lifecycle")
+}
+
+model Image {
+  id           Int        @id @default(autoincrement())
+  alt          String
+  src          String
+  classifiedId Int        @map("classified_id")
+  classified   Classified @relation(fields: [classifiedId], references: [id], onDelete: Cascade)
+  blurhash     String
+  isMain       Boolean    @default(false) @map("is_main")
+
+  @@map("images")
+}
+
+model PageView {
+  id        Int      @id @default(autoincrement())
+  path      String
+  viewedAt  DateTime @default(now()) @map("viewed_at")
+  ipAddress String?
+  userAgent String?
+  referrer  String?
+
+  @@index([path, viewedAt])
+  @@map("page_views")
+}
+
+model Make {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  image       String
+  models      Model[]
+  classifieds Classified[]
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("makes")
+}
+
+model Model {
+  id            Int            @id @default(autoincrement())
+  name          String
+  makeId        Int            @map("make_id")
+  make          Make           @relation(fields: [makeId], references: [id], onDelete: Cascade)
+  modelVariants ModelVariant[]
+  classifieds   Classified[]
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  @@unique([makeId, name])
+  @@map("models")
+}
+
+model ModelVariant {
+  id          Int          @id @default(autoincrement())
+  name        String
+  modelId     Int          @map("model_id")
+  yearStart   Int
+  yearEnd     Int
+  model       Model        @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  classifieds Classified[]
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@unique([modelId, name])
+  @@map("model_variants")
+}
+
+
+enum CustomerStatus {
+  SUBSCRIBER
+  INTERESTED
+  CONTACTED
+  PURCHASED
+  COLD
+}
+
+enum ClassifiedStatus {
+  LIVE
+  DRAFT
+  SOLD
+}
+
+enum CurrencyCode {
+  GBP
+  EUR
+  USD
+}
+
+enum OdoUnit {
+  MILES
+  KILOMETERS
+}
+
+enum BodyType {
+  SEDAN
+  HATCHBACK
+  SUV
+  COUPE
+  CONVERTIBLE
+  WAGON
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  ELECTRIC
+  HYBRID
+}
+
+enum Colour {
+  BLACK
+  BLUE
+  BROWN
+  GOLD
+  GREEN
+  GREY
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  SILVER
+  WHITE
+  YELLOW
+}
+
+enum ULEZCompliance {
+  EXEMPT
+  NON_EXEMPT
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
