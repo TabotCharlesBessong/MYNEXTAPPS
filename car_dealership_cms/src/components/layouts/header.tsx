@@ -9,6 +9,7 @@ import Link from "next/link";
 import { SignOutForm } from "../auth/sign-out-form";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { ImgixImage } from "../ui/imgix-image";
 // import { auth } from "../../app/auth";
 
 export const PublicHeader = async () => {
@@ -19,7 +20,7 @@ export const PublicHeader = async () => {
     <header className="flex items-center justify-between h-16 px-4 bg-transparent gap-x-6">
       <div className="flex items-center flex-1">
         <Link href={routes.home} className="flex items-center gap-2">
-          <Image
+          <ImgixImage
             width={300}
             height={100}
             alt="logo"

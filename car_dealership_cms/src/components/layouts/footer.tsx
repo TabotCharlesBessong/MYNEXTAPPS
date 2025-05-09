@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NewsletterForm } from "../shared/newsletter-form";
 import {SiMeta,SiX,SiInstagram} from "react-icons/si"
+import { ImgixImage } from "../ui/imgix-image";
 const socialLinks = [
   {
     id: 1,
@@ -33,7 +34,7 @@ export const PublicFooter = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="flex flex-col space-x-2 gap-y-2">
           <Link className="flex items-center" href={routes.home}>
-            <Image
+            <ImgixImage
               width={300}
               height={100}
               alt="logo"
