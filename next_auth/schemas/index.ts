@@ -2,12 +2,9 @@ import { z } from "zod";
 
 // User schema
 export const userSchema = z.object({
-  id: z.string().uuid(),
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  password: z.string().min(8, "Password must be at least 8 characters long")
 });
 
 // Login schema
