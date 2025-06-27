@@ -1,16 +1,39 @@
-"use server"
+"use server";
 
-import { loginSchema } from "@/schemas";
 import { z } from "zod";
+import { loginSchema } from "@/schemas";
+import bcrypt from "bcrypt";
+import User from "@/models/User";
+import { connectToDatabase } from "@/lib/db";
 
-export const login = async (values : z.infer<typeof loginSchema>) => {
-  console.log(values);  
+export const login = async (values: z.infer<typeof loginSchema>) => {
+  await connectToDatabase(); // Ensure the database is connected
+
   const validatedFields = loginSchema.safeParse(values);
 
-  if(!validatedFields.success) {
+  if (!validatedFields.success) {
     return {
-      error: "something went wrong",
+      error: "Validation failed. Please check your input.",
     };
   }
-  return {success:"Email sent successfully!"};
-}
+
+  const { email, password } = validatedFields.data;
+
+  // Find the user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    return {
+      error: "Invalid email or password.",
+    };
+  }
+
+  // Compare the provided password with the hashed password
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return {
+      error: "Invalid email or password.",
+    };
+  }
+
+  return { success: "Login successful!" };
+};
