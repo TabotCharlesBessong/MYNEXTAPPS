@@ -1,3 +1,6 @@
+import Dashboard from "@/components/Dashboard";
+import Header from "@/components/Header";
+import SideBar from "@/components/Sidebar";
 import Head from "next/head";
 
 const Home = () => {
@@ -9,8 +12,10 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <h1>Hello people</h1>
+      <Header />
+      <div className="main-container" >
+        <SideBar />
+        <Dashboard />
       </div>
     </>
   );
