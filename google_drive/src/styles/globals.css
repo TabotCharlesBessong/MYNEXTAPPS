@@ -80,6 +80,7 @@ main {
 .emoji {
     color: rgb(85, 85, 246);
     margin-right: 7px;
+    cursor: pointer;
 }
 
 .control-container {
