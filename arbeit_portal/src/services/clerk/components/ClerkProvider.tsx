@@ -8,12 +8,12 @@ import { useIsDarkMode } from "@/hooks/useIsDarkMode"
 export function ClerkProvider({ children }: { children: ReactNode }) {
   const isDarkMode = useIsDarkMode()
   return (
-    // <Suspense>
+    <Suspense>
     <OriginalClerkProvider
       appearance={isDarkMode ? { baseTheme: [dark] } : undefined}
     >
       {children}
     </OriginalClerkProvider>
-    // </Suspense>
+    </Suspense>
   )
 }
