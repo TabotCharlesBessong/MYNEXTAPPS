@@ -5,6 +5,8 @@ import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import nodemailer from "nodemailer"
+import {nodemailerAdapter} from "@payloadcms/email-nodemailer"
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -91,4 +93,16 @@ export default buildConfig({
     },
     tasks: [],
   },
+  email:nodemailerAdapter({
+    defaultFromAddress:'info@payloadcms.com',
+    defaultFromName: 'Payload',
+    transportOptions:{
+      host: process.env.SMTP_HOST || "gmail",
+      port: 465,
+      auth: {
+        user: process.env.SMTP_USER || "ebezebeatrice@gmail.com",
+        pass: process.env.SMTP_PASS
+      }
+    }
+  })
 })

@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@payloadcms/admin-bar": "3.46.0",
+    "@payloadcms/db-sqlite": "3.46.0",
+    "@payloadcms/email-nodemailer": "^3.46.0",
     "@payloadcms/live-preview-react": "3.46.0",
     "@payloadcms/next": "3.46.0",
     "@payloadcms/payload-cloud": "3.46.0",
@@ -46,6 +48,7 @@
     "lucide-react": "^0.378.0",
     "next": "15.3.3",
     "next-sitemap": "^4.2.3",
+    "nodemailer": "^7.0.5",
     "payload": "3.46.0",
     "prism-react-renderer": "^2.3.1",
     "react": "19.1.0",
@@ -53,8 +56,7 @@
     "react-hook-form": "7.45.4",
     "sharp": "0.34.2",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "@payloadcms/db-sqlite": "3.46.0"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -63,6 +65,7 @@
     "@testing-library/react": "16.3.0",
     "@types/escape-html": "^1.0.2",
     "@types/node": "22.5.4",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
     "@vitejs/plugin-react": "4.5.2",
