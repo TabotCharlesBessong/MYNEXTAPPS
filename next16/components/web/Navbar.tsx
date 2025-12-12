@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { buttonVariants } from "../ui/button";
+import { ThemeToggle } from "./theme-toggle";
 
 const Navbar = () => {
   return (
@@ -34,6 +35,7 @@ const Navbar = () => {
         <Link href="/signup" className={buttonVariants()}>
           Sign Up
         </Link>
+        <ThemeToggle />
       </div>
     </nav>
   );
