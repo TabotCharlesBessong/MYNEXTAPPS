@@ -1,6 +1,7 @@
 "use client";
 
 import { signUpSchema } from "@/app/schemas/auth";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -28,6 +29,9 @@ const Signup = () => {
       password: "",
     },
   });
+  const onSubmit = () => {
+    console.log("Yoooo");
+  };
   return (
     <Card>
       <CardHeader>
@@ -35,15 +39,20 @@ const Signup = () => {
         <CardDescription>Create your account to get started.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form action="">
-          <FieldGroup>
+        <form action="" onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup className="gap-y-4">
             <Controller
               name="name"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Full Label</FieldLabel>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="John Doe"
+                    {...field}
+                    type="text"
+                  />
                   {fieldState.error && (
                     <FieldError className="text-sm text-red-600">
                       {fieldState.error.message}
@@ -52,6 +61,47 @@ const Signup = () => {
                 </Field>
               )}
             />
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel>Email</FieldLabel>
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="john.doe@example.com"
+                    {...field}
+                    type="email"
+                  />
+                  {fieldState.error && (
+                    <FieldError className="text-sm text-red-600">
+                      {fieldState.error.message}
+                    </FieldError>
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="password"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel>Password</FieldLabel>
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="********"
+                    {...field}
+                    type="password"
+                  />
+                  {fieldState.error && (
+                    <FieldError className="text-sm text-red-600">
+                      {fieldState.error.message}
+                    </FieldError>
+                  )}
+                </Field>
+              )}
+            />
+            <Button>Signup</Button>
           </FieldGroup>
         </form>
       </CardContent>
